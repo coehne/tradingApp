@@ -1,4 +1,4 @@
-package db
+package database
 
 import (
 	"log"
@@ -9,26 +9,22 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-type DbInstance struct {
-	Db *gorm.DB
-}
+var DB *gorm.DB
 
-var Database DbInstance
-
-func ConnectDb() {
-	db, err := gorm.Open(sqlite.Open("db/db.db"), &gorm.Config{})
+func Connect() {
+	connection, err := gorm.Open(sqlite.Open("database/db.db"), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database\n", err.Error())
 	}
+	DB = connection
 
 	log.Println("Successfully connected to database")
 
 	// How verbose the terminal log should be
-	db.Logger = logger.Default.LogMode(logger.Info)
+	DB.Logger = logger.Default.LogMode(logger.Info)
 
 	// Add auto migrations
-	db.AutoMigrate(&models.User{}, &models.Trade{}, &models.Transaction{})
+	DB.AutoMigrate(&models.User{}, &models.Trade{}, &models.Transaction{})
 
-	Database = DbInstance{Db: db}
 }

@@ -3,9 +3,10 @@ package models
 import "time"
 
 type User struct {
-	ID        uint   `json:"id" gorm:"primaryKey"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	ID        uint
+	Email     string `gorm:"unique"`
+	Hash      []byte
+	FirstName string
 	CreatedAt time.Time
-	UpdatedAt time.Time
+	UpdatedAt *time.Time
 }
