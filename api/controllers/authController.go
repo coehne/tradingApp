@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"strconv"
 	"time"
 
 	"github.com/dakicka/tradingApp/api/database"
@@ -59,8 +60,8 @@ func Login(c *fiber.Ctx) error {
 
 	// Create the Claims
 	claims := &jwt.StandardClaims{
-		ExpiresAt: jwt.NewTime(15000),
-		Issuer:    user.FirstName,
+		ExpiresAt: jwt.At(time.Now().Add(time.Hour * 24)),
+		Issuer:    strconv.Itoa(int(user.ID)),
 	}
 
 	// Create token with claims
@@ -76,7 +77,7 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	cookie := fiber.Cookie{
-		Name:     "accessToken",
+		Name:     "jwt",
 		Value:    token,
 		Expires:  time.Now().Add(time.Hour * 24),
 		HTTPOnly: true,
@@ -86,5 +87,29 @@ func Login(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message": "success",
 	})
+
+}
+
+func User(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(VERY_SECRET_KEY), nil
+	})
+
+	if err != nil {
+		c.Status(fiber.StatusUnauthorized)
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Unauthorized",
+		})
+	}
+
+	claims := token.Claims.(*jwt.StandardClaims)
+
+	var user models.User
+
+	database.DB.Where("ID = ?", claims.Issuer).First(&user)
+
+	return c.JSON(user)
 
 }

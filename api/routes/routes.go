@@ -6,9 +6,10 @@ import (
 )
 
 func Setup(app *fiber.App) {
-	// Welcome endpoint
+	// Identity endpoint
 	app.Post("/api/identity/register", controllers.Register)
 	app.Post("/api/identity/login", controllers.Login)
+	app.Get("/api/identity/user", controllers.User)
 
 	// User endpoint
 
