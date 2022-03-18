@@ -16,7 +16,7 @@ type DbInstance struct {
 var Database DbInstance
 
 func ConnectDb() {
-	db, err := gorm.Open(sqlite.Open("db.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("db/db.db"), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database\n", err.Error())
