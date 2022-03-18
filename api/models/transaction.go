@@ -2,12 +2,10 @@ package models
 
 import "time"
 
-type Trade struct {
+type Transaction struct {
 	ID        uint      `json:"id" gorm:"primaryKey"`
-	UserID    int       `json:"-"`
+	UserID    int       `json:"userId"`
 	User      User      `json:"-" gorm:"foreignKey:UserId"`
-	Symbol    string    `json:"symbol"`
-	Qty       int       `json:"qty"`
-	Price     float32   `json:"price"`
+	Value     float32   `json:"value"`
 	CreatedAt time.Time `json:"createdAt"`
 }

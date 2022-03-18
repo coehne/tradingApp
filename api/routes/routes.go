@@ -10,7 +10,8 @@ func Setup(app *fiber.App) {
 	app.Post("/api/identity/register", controllers.Register)
 	app.Post("/api/identity/login", controllers.Login)
 	app.Get("/api/identity/user", controllers.User)
+	app.Post("/api/identity/logout", controllers.Logout)
 
-	// User endpoint
+	// Trade endpoint
 
 }
