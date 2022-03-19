@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	database.Connect()
 
 	app := fiber.New()
