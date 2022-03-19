@@ -14,6 +14,9 @@ func Setup(app *fiber.App) {
 
 	// Trade endpoint
 
+	// Transaction endpoint
+	app.Post("/api/transaction", controllers.DepositCash)
+
 	// Quote endpoint
 	app.Get("/api/quote", controllers.GetQuote)
 }

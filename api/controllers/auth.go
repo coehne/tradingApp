@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"os"
 	"strconv"
 	"time"
 
@@ -11,7 +12,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-const VERY_SECRET_KEY = "verySecretKey"
+var verySecretKey = os.Getenv("VERY_SECRET_KEY")
 
 func Register(c *fiber.Ctx) error {
 	var data map[string]string
@@ -50,6 +51,8 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
+	//TODO: Check if password was provided or not
+
 	// Compare the probided hashed password with the hash from the db
 	if err := bcrypt.CompareHashAndPassword(user.Hash, []byte(data["password"])); err != nil {
 		c.Status(fiber.StatusBadRequest)
@@ -66,7 +69,7 @@ func Login(c *fiber.Ctx) error {
 
 	// Create token with claims
 	tokenData := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	token, err := tokenData.SignedString([]byte(VERY_SECRET_KEY))
+	token, err := tokenData.SignedString([]byte(verySecretKey))
 
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
@@ -94,7 +97,7 @@ func User(c *fiber.Ctx) error {
 	cookie := c.Cookies("accessToken")
 
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(VERY_SECRET_KEY), nil
+		return []byte(verySecretKey), nil
 	})
 
 	if err != nil {

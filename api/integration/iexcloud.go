@@ -3,11 +3,8 @@ package integration
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 type Stock struct {
@@ -73,11 +70,6 @@ type Stock struct {
 // Credits: https://www.youtube.com/watch?v=evorkFq3Y5k
 
 func GetStockInfo(symbol string) (*Stock, error) {
-	// Get .env variables
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 
 	apiKey := os.Getenv("API_KEY")
 	url := fmt.Sprintf("https://cloud.iexapis.com/stable/stock/%s/quote?token=%s", symbol, apiKey)
