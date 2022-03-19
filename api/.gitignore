@@ -12,7 +12,7 @@
 *.out
 
 # Ignore the DB
-db.db
+sql.db
 
 # Ignore .env
 .env
