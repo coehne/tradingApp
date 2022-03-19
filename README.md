@@ -10,3 +10,4 @@ Inspired by the C$50 Trading app (https://finance.cs50.net/)
 - Build a react frontend
 - Write unit tests in Go and React
 - Use Github actions for CI/CD
+- Refactoring in to clean architecture
