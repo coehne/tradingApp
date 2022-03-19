@@ -14,4 +14,6 @@ func Setup(app *fiber.App) {
 
 	// Trade endpoint
 
+	// Quote endpoint
+	app.Get("/api/quote", controllers.GetQuote)
 }
