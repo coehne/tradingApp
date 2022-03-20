@@ -11,8 +11,8 @@ import (
 )
 
 //TODO:
-// - Abstract token validation and user parsing from token
-// - Request field validations
+// - Further abstract token validation and user parsing from token
+// - Fieldvalidations (https://medium.com/@apzuk3/input-validation-in-golang-bc24cdec1835)
 
 func main() {
 	// Get .env variables

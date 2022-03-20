@@ -21,6 +21,7 @@ func CreateTransaction(c *fiber.Ctx) error {
 
 	// Get user from token
 	user, err := GetUserFromToken(c)
+	// Return 401 if invalid or no token provided
 	if err != nil {
 		c.Status(fiber.StatusUnauthorized)
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
@@ -48,6 +49,7 @@ func CreateTransaction(c *fiber.Ctx) error {
 func GetTransactions(c *fiber.Ctx) error {
 	// Get user from token
 	user, err := GetUserFromToken(c)
+	// Return 401 if invalid or no token provided
 	if err != nil {
 		c.Status(fiber.StatusUnauthorized)
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
@@ -58,6 +60,7 @@ func GetTransactions(c *fiber.Ctx) error {
 	transactions := []models.Transaction{}
 	database.DB.Find(&transactions, "user_id = ?", user.ID)
 
+	// Return 200
 	return c.Status(fiber.StatusOK).JSON(transactions)
 
 }

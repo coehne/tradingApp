@@ -9,12 +9,13 @@ import (
 
 type CreateTradeRequest struct {
 	Symbol string `json:"symbol"`
-	Qty    int    `json:"qty"`
+	Qty    int    `json:"qty" validate:"required"`
 }
 
 func CreateTrade(c *fiber.Ctx) error {
 	// Get user from token
 	user, err := GetUserFromToken(c)
+	// Return 401 if invalid or no token provided
 	if err != nil {
 		c.Status(fiber.StatusUnauthorized)
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
@@ -33,7 +34,7 @@ func CreateTrade(c *fiber.Ctx) error {
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
 		return c.JSON(fiber.Map{
-			"message": "Internal server error",
+			"message": "internal server error",
 		})
 	}
 	// Build trade
@@ -43,6 +44,11 @@ func CreateTrade(c *fiber.Ctx) error {
 	trade.Qty = data.Qty
 	trade.Symbol = data.Symbol
 
+	// Build transaction
+	var transaction models.Transaction
+	transaction.UserID = user.ID
+	transaction.Amount = trade.Price * float64(trade.Qty) * (-1)
+
 	// Check if user has enough cash
 	// Get cash
 	var cash float64
@@ -51,11 +57,6 @@ func CreateTrade(c *fiber.Ctx) error {
 	for _, tx := range transactions {
 		cash += tx.Amount
 	}
-
-	// Build transaction
-	var transaction models.Transaction
-	transaction.UserID = user.ID
-	transaction.Amount = trade.Price * float64(trade.Qty) * (-1)
 
 	// Return 400 if not enough cash for transaction
 	if trade.Qty > 0 && cash < transaction.Amount {
@@ -67,6 +68,7 @@ func CreateTrade(c *fiber.Ctx) error {
 
 	// Return 400 if not enough stocks to sell
 	if transaction.Amount > 0 {
+		// Check how many stonks of that symbol are in the depot
 		var stocks int
 		trades := []models.Trade{}
 		database.DB.Find(&trades, "user_id = ?", user.ID)
@@ -76,7 +78,8 @@ func CreateTrade(c *fiber.Ctx) error {
 
 			}
 		}
-		if stocks < 0 {
+		// If the amount of stocks - the sell order is negativ, return 400
+		if stocks+trade.Qty < 0 {
 			c.Status(fiber.StatusBadRequest)
 			return c.JSON(fiber.Map{
 				"message": "not enough stocks",
@@ -85,9 +88,16 @@ func CreateTrade(c *fiber.Ctx) error {
 
 	}
 
-	// Insert into db
+	// Insert trade into db
 	database.DB.Create(&trade)
+
+	// Adjust add generated trade ID as FK to transaction
+	transaction.TradeID = trade.ID
+
+	// Insert transaction into db
 	database.DB.Create(&transaction)
+
+	// Return 200
 	c.Status(fiber.StatusOK)
 	return c.JSON(fiber.Map{
 		"message": "success",
@@ -97,6 +107,7 @@ func CreateTrade(c *fiber.Ctx) error {
 func GetTrades(c *fiber.Ctx) error {
 	// Get user from token
 	user, err := GetUserFromToken(c)
+	// Return 401 if invalid or no token provided
 	if err != nil {
 		c.Status(fiber.StatusUnauthorized)
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
