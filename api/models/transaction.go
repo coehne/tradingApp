@@ -6,7 +6,7 @@ import (
 
 type Transaction struct {
 	gorm.Model
-	UserID uint  `json:"userId"`
-	User   User  `json:"-" gorm:"foreignKey:UserID"`
-	Value  int64 `json:"value"`
+	UserID uint    `json:"userId"`
+	User   User    `json:"-" gorm:"foreignKey:UserID"`
+	Amount float64 `json:"amount"`
 }

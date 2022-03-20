@@ -11,7 +11,8 @@ import (
 )
 
 //TODO:
-// Abstract token validation and user parsing from token
+// - Abstract token validation and user parsing from token
+// - Request field validations
 
 func main() {
 	// Get .env variables
