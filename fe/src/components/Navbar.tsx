@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 
+//TODO: Refactor into components
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   return (
