@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form"
 import { FormContainer, InputText } from "../components/atoms/FormElements"
+import { useAuth } from "../context/AuthContext"
+import { useAsync } from "../hooks/useAsync"
 
 interface FormData {
   firstName: string
@@ -14,14 +16,10 @@ function Signup() {
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
 
-  const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch("http://localhost:8000/api/identity/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data }),
-    })
-    const content = await res.json()
-    console.log(content)
+  const { signup } = useAuth()
+  const { run } = useAsync<any>()
+  const onSubmit = handleSubmit(({ email, password, firstName }) => {
+    run(signup({ email, password, firstName }))
   })
 
   return (

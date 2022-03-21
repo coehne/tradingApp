@@ -7,7 +7,7 @@ import (
 
 func Setup(app *fiber.App) {
 	// Identity endpoint
-	app.Post("/api/identity/register", controllers.Register)
+	app.Post("/api/identity/signup", controllers.Register)
 	app.Post("/api/identity/login", controllers.Login)
 	app.Get("/api/identity/me", controllers.User)
 	app.Post("/api/identity/logout", controllers.Logout)
