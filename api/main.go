@@ -11,7 +11,8 @@ import (
 )
 
 //TODO:
-// Abstract token validation and user parsing from token
+// - Further abstract token validation and user parsing from token
+// - Fieldvalidations (https://medium.com/@apzuk3/input-validation-in-golang-bc24cdec1835)
 
 func main() {
 	// Get .env variables
@@ -31,5 +32,5 @@ func main() {
 	// Setup all Routes
 	routes.Setup(app)
 
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(":8000"))
 }

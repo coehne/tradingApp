@@ -6,9 +6,9 @@ import (
 
 type Trade struct {
 	gorm.Model
-	UserID int     `json:"-"`
+	UserID uint    `json:"-"`
 	User   User    `json:"-" gorm:"foreignKey:UserID"`
 	Symbol string  `json:"symbol"`
 	Qty    int     `json:"qty"`
-	Price  float32 `json:"price"`
+	Price  float64 `json:"price"`
 }
