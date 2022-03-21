@@ -89,7 +89,7 @@ function Navbar() {
 
               {/* TODO: Abstract into button component */}
               <a
-                href="#"
+                href="/signup"
                 className="py-2 px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
               >
                 Signup
@@ -104,7 +104,7 @@ function Navbar() {
           </div>
         </div>
         {/* Mobile menu */}
-        <div className={isOpen == false ? "hidden" : "md:hidden text-center"}>
+        <div className={!isOpen ? "hidden" : "md:hidden text-center"}>
           <MobileNavigationMenuItem to="#" toggleMenu={() => setIsOpen(false)}>
             Transactions
           </MobileNavigationMenuItem>
