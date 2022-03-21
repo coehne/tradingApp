@@ -1,6 +1,7 @@
 import { ErrorMessage } from "@hookform/error-message"
 import React from "react"
-import { useForm } from "react-hook-form"
+import { useForm, UseFormRegisterReturn } from "react-hook-form"
+import { FormContainer, InputText } from "../components/atoms/FormElements"
 
 interface FormData {
   firstName: string
@@ -13,17 +14,16 @@ function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ mode: "onTouched" })
+  } = useForm<FormData>({ mode: "onSubmit" })
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch("http://localhost:8000/api/identity/register", {
+    /*  const res = await fetch("http://localhost:8000/api/identity/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data }),
     })
-
-    const content = await res.json()
-    console.log(content)
+    const content = await res.json() */
+    console.log(data)
   })
 
   return (
@@ -35,68 +35,52 @@ function Signup() {
         <div className="text-center font-medium text-xl mt-2">
           Signup now for free and start trading!
         </div>
-        <div className="max-w-md w-full-md mx-auto bg-white border p-8 border-gray-300 mt-4">
+        <FormContainer>
           <form onSubmit={onSubmit} className="space-y-6">
-            <div>
-              <label
-                htmlFor=""
-                className="text-sm font-bold text-gray-600 block"
-              >
-                First Name
-              </label>
-              <input
-                {...register("firstName", {
-                  required: "Please fill in your first name",
-                })}
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded mt-1"
-              />
-              <ErrorMessage errors={errors} name="firstName" />
-            </div>
-            <div>
-              <label
-                htmlFor=""
-                className="text-sm font-bold text-gray-600 block"
-              >
-                Email
-              </label>
-              <input
-                {...register("email", {
-                  required: "Please fill in your email",
-                })}
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded mt-1"
-              />
-              <ErrorMessage errors={errors} name="email" />
-            </div>
-            <div>
-              <label
-                htmlFor=""
-                className="text-sm font-bold text-gray-600 block"
-              >
-                Password
-              </label>
-              <input
-                {...register("password", {
-                  required: "Please fill in your password",
-                })}
-                type="password"
-                className="w-full p-2 border border-gray-300 rounded mt-1"
-              />
-              <ErrorMessage errors={errors} name="password" />
-            </div>
-            <div className="flex items-center justify-end">
-              <a href="" className="font-medium text-sm text-green-600">
-                Forgot Password?
-              </a>
-            </div>
+            <InputText
+              errors={errors}
+              registerHandler={() =>
+                register("firstName", {
+                  required: "This is a required field",
+                })
+              }
+              name="firstName"
+              type="text"
+            >
+              First Name
+            </InputText>
+            <InputText
+              errors={errors}
+              registerHandler={() =>
+                register("email", {
+                  required: "This is a required field",
+                })
+              }
+              name="email"
+              type="text"
+            >
+              Email
+            </InputText>
+            <InputText
+              errors={errors}
+              registerHandler={() =>
+                register("password", {
+                  required: "This is a required field",
+                })
+              }
+              name="password"
+              type="password"
+            >
+              Password
+            </InputText>
+
             <div>
               <button className="w-full py-2 px-4 bg-primary hover:bg-green-600 rounded text-black font-bold">
                 Submit
               </button>
             </div>
           </form>
-        </div>
+        </FormContainer>
       </div>
     </div>
   )
