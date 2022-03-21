@@ -15,8 +15,15 @@ function Signup() {
     formState: { errors },
   } = useForm<FormData>({ mode: "onTouched" })
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
+  const onSubmit = handleSubmit(async (data) => {
+    const res = await fetch("http://localhost:8000/api/identity/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...data }),
+    })
+
+    const content = await res.json()
+    console.log(content)
   })
 
   return (
