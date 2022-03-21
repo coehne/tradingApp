@@ -70,7 +70,7 @@ const AuthProvider = (props: { children: React.ReactNode }) => {
   }
 
   if (isError) {
-    return <div>Todo: FullPage Error </div>
+    return <div>Todo: FullPageError error: {JSON.stringify(error)} </div>
   }
 
   if (isSuccess) {
