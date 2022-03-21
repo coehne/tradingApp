@@ -2,12 +2,11 @@ import { useForm } from "react-hook-form"
 import { FormContainer, InputText } from "../components/atoms/FormElements"
 
 interface FormData {
-  firstName: string
   email: string
   password: string
 }
 
-function Signup() {
+function Login() {
   const {
     register,
     handleSubmit,
@@ -15,9 +14,10 @@ function Signup() {
   } = useForm<FormData>({ mode: "onSubmit" })
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch("http://localhost:8000/api/identity/register", {
+    const res = await fetch("http://localhost:8000/api/identity/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ ...data }),
     })
     const content = await res.json()
@@ -28,25 +28,10 @@ function Signup() {
     <div className="min-h-screen bg-gray-200 flex flex-col justify-center">
       <div className="max-w-md w-full mx-auto">
         <div className="text-3xl font-bold text-gray-900 mt-2 text-center">
-          Signup
-        </div>
-        <div className="text-center font-medium text-xl mt-2">
-          Signup now for free and start trading!
+          Login
         </div>
         <FormContainer>
           <form onSubmit={onSubmit} className="space-y-6">
-            <InputText
-              errors={errors}
-              registerHandler={() =>
-                register("firstName", {
-                  required: "This is a required field",
-                })
-              }
-              name="firstName"
-              type="text"
-            >
-              First Name
-            </InputText>
             <InputText
               errors={errors}
               registerHandler={() =>
@@ -84,4 +69,4 @@ function Signup() {
   )
 }
 
-export default Signup
+export default Login

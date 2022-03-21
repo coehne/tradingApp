@@ -85,7 +85,7 @@ function Navbar() {
             </div>
             {/* secondary nav */}
             <div className="hidden md:flex items-center space-x-1">
-              <NavigationMenuItem to="#">Login</NavigationMenuItem>
+              <NavigationMenuItem to="login">Login</NavigationMenuItem>
 
               {/* TODO: Abstract into button component */}
               <a
