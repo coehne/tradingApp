@@ -1,14 +1,13 @@
 package models
 
-import (
-	"gorm.io/gorm"
-)
+import "time"
 
 type Trade struct {
-	gorm.Model
-	UserID uint    `json:"-"`
-	User   User    `json:"-" gorm:"foreignKey:UserID"`
-	Symbol string  `json:"symbol"`
-	Qty    int     `json:"qty"`
-	Price  float64 `json:"price"`
+	ID        uint      `json:"id"`
+	CreatedAt time.Time `json:"createdAt"`
+	UserID    uint      `json:"-"`
+	User      User      `json:"-" gorm:"foreignKey:UserID"`
+	Symbol    string    `json:"symbol"`
+	Qty       int       `json:"qty"`
+	Price     float64   `json:"price"`
 }

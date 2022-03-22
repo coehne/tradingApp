@@ -1,10 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message"
-import { ReactNode } from "react"
-import {
-  FieldErrors,
-  UseFormRegisterReturn,
-  UseFormSetError,
-} from "react-hook-form"
+import { FieldErrors, UseFormRegisterReturn } from "react-hook-form"
 
 export const InputText: React.FC<{
   name: string

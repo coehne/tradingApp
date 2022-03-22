@@ -49,7 +49,7 @@ function Navbar() {
 
   const Logo = () => (
     <div>
-      <a href="#" className="flex items-center py-5 px-2 text-gray-400">
+      <a href="/" className="flex items-center py-5 px-2 text-gray-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 mr-1 text-green-600"
@@ -79,8 +79,10 @@ function Navbar() {
               <Logo />
               {/* primary nav */}
               <div className="hidden md:flex items-center space-x-1 ">
-                <NavigationMenuItem to="#">Transactions</NavigationMenuItem>
-                <NavigationMenuItem to="#">Trades</NavigationMenuItem>
+                <NavigationMenuItem to="/transactions">
+                  Transactions
+                </NavigationMenuItem>
+                <NavigationMenuItem to="/">Trades</NavigationMenuItem>
               </div>
             </div>
             {/* secondary nav */}
@@ -105,12 +107,32 @@ function Navbar() {
         </div>
         {/* Mobile menu */}
         <div className={!isOpen ? "hidden" : "md:hidden text-center"}>
-          <MobileNavigationMenuItem to="#" toggleMenu={() => setIsOpen(false)}>
-            Transactions
-          </MobileNavigationMenuItem>
-          <MobileNavigationMenuItem to="#" toggleMenu={() => setIsOpen(false)}>
-            Trades
-          </MobileNavigationMenuItem>
+          <div className="flex flex-col p-3">
+            <MobileNavigationMenuItem
+              to="/transactions"
+              toggleMenu={() => setIsOpen(false)}
+            >
+              Transactions
+            </MobileNavigationMenuItem>
+            <MobileNavigationMenuItem
+              to="#"
+              toggleMenu={() => setIsOpen(false)}
+            >
+              Trades
+            </MobileNavigationMenuItem>
+            <a
+              href="/login"
+              className="py-2 my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
+            >
+              Login
+            </a>
+            <a
+              href="/signup"
+              className="py-2  my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
+            >
+              Signup
+            </a>
+          </div>
         </div>
       </nav>
     </>
