@@ -40,7 +40,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: 'reactApp'
-    - run: ls 
+    - run: cp index.html 404.html
     - name: rsync deployments
       uses: burnett01/rsync-deployments@4.1
       with:
