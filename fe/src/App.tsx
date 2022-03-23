@@ -4,6 +4,7 @@ import Navbar from "./components/molecules/Navbar"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import Trade from "./pages/Trade"
 import Trades from "./pages/Trades"
 import Transactions from "./pages/Transactions"
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/trades" element={<Trades />} />
+        <Route path="/trade/:id" element={<Trade />} />
       </Routes>
     </BrowserRouter>
   )
