@@ -24,7 +24,7 @@ export const BuyForm = () => {
 
     axios
       .post("/trade/", formData)
-      .then(() => navigate("/trades"))
+      .then(() => navigate("/"))
       .catch((error) => console.log(error))
   })
 

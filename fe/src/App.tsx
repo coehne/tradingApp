@@ -7,7 +7,7 @@ import NewTrade from "./pages/NewTrade"
 import NewTsx from "./pages/NewTsx"
 import Signup from "./pages/Signup"
 import Trade from "./pages/Trade"
-import Trades from "./pages/Trades"
+import TradeHistory from "./pages/Trades"
 import Transactions from "./pages/Transactions"
 
 //TODO:
@@ -31,7 +31,7 @@ function App() {
           path="/transactions/withdraw"
           element={<NewTsx type={"withdraw"} />}
         />
-        <Route path="/trades" element={<Trades />} />
+        <Route path="/trades" element={<TradeHistory />} />
         <Route path="/trade/:id" element={<Trade />} />
         <Route path="/trades/buy" element={<NewTrade type="buy" />} />
         <Route path="/trades/sell" element={<NewTrade type="sell" />} />

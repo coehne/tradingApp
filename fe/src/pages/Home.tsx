@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react"
+import Depot from "./Depot"
 
 function Home() {
-  return (
-    <div>Hello from Home</div>
-  )
+  return <Depot />
 }
 
 export default Home

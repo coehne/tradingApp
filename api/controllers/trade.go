@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/dakicka/tradingApp/api/database"
 	"github.com/dakicka/tradingApp/api/integration"
@@ -43,9 +44,11 @@ func CreateTrade(c *fiber.Ctx) error {
 	stock, err := integration.GetStockInfo(data.Symbol)
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
+		fmt.Println(err.Error())
 		return c.JSON(fiber.Map{
-			"message": "internal server error",
+			"message": "internal server error -> could not get stock data from iexcloud",
 		})
+
 	}
 	// Build trade
 	var trade models.Trade
@@ -130,6 +133,46 @@ func GetTrades(c *fiber.Ctx) error {
 	database.DB.Find(&trades, "user_id = ?", user.ID)
 
 	return c.Status(fiber.StatusOK).JSON(trades)
+
+}
+func GetTradesForDepot(c *fiber.Ctx) error {
+	// Get user from token
+	user, err := GetUserFromToken(c)
+	// Return 401 if invalid or no token provided
+	if err != nil {
+		c.Status(fiber.StatusUnauthorized)
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Unauthorized",
+		})
+	}
+
+	trades := []models.Trade{}
+	// database.DB.Find(&trades, "user_id = ?", user.ID)
+	database.DB.Model(&models.Trade{}).Select("company_name, symbol, sum(qty) as qty").Group("symbol").Having("user_id = ?", user.ID).Find(&trades)
+
+	depoTrades := []models.Trade{}
+	// Get current price and clean data
+	for _, trade := range trades {
+		if trade.Qty == 0 {
+			continue
+		} else {
+			// Get current stock price
+			stock, err := integration.GetStockInfo(trade.Symbol)
+			if err != nil {
+				c.Status(fiber.StatusInternalServerError)
+				fmt.Println(err.Error())
+				return c.JSON(fiber.Map{
+					"message": "internal server error -> could not get stock data from iexcloud",
+				})
+
+			}
+			trade.Price = stock.LatestPrice
+			depoTrades = append(depoTrades, trade)
+		}
+	}
+	fmt.Println(depoTrades)
+
+	return c.Status(fiber.StatusOK).JSON(depoTrades)
 
 }
 func GetTrade(c *fiber.Ctx) error {

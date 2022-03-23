@@ -26,9 +26,9 @@ type Stock struct {
 	High                   float64 `json:"high"`
 	HighSource             string  `json:"highSource"`
 	HighTime               int64   `json:"highTime"`
-	IexAskPrice            int     `json:"iexAskPrice"`
+	IexAskPrice            float64 `json:"iexAskPrice"`
 	IexAskSize             int     `json:"iexAskSize"`
-	IexBidPrice            int     `json:"iexBidPrice"`
+	IexBidPrice            float64 `json:"iexBidPrice"`
 	IexBidSize             int     `json:"iexBidSize"`
 	IexClose               float64 `json:"iexClose"`
 	IexCloseTime           int64   `json:"iexCloseTime"`
