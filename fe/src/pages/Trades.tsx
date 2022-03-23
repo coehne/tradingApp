@@ -18,10 +18,13 @@ function Trades() {
       <div className="max-w-5xl w-full mx-auto my-10">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   ID
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Company Name
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Symbol
@@ -41,7 +44,7 @@ function Trades() {
               {data?.map((trade) => {
                 return (
                   <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
                     key={trade.id}
                   >
                     <th
@@ -50,6 +53,7 @@ function Trades() {
                     >
                       {trade.id}
                     </th>
+                    <td className="px-6 py-4">{trade.companyName}</td>
                     <td className="px-6 py-4">{trade.symbol}</td>
                     <td className="px-6 py-4">{trade.qty}</td>
                     <td className="px-6 py-4">{numberToUSD(trade.price)}</td>

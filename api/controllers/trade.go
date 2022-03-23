@@ -43,6 +43,7 @@ func CreateTrade(c *fiber.Ctx) error {
 	trade.UserID = user.ID
 	trade.Qty = data.Qty
 	trade.Symbol = data.Symbol
+	trade.CompanyName = stock.CompanyName
 
 	// Build transaction
 	var transaction models.Transaction
