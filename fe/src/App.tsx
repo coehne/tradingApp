@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Outlet, Route, Routes } from "react-router-dom"
 import "./App.css"
 import Navbar from "./components/molecules/Navbar"
 import Home from "./pages/Home"
@@ -18,27 +18,35 @@ import Transactions from "./pages/Transactions"
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/transactions" element={<Transactions />} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+        <Route path="transactions" element={<Transactions />} />
         <Route
-          path="/transactions/deposit"
+          path="transactions/deposit"
           element={<NewTsx type={"deposit"} />}
         />
         <Route
-          path="/transactions/withdraw"
+          path="transactions/withdraw"
           element={<NewTsx type={"withdraw"} />}
         />
-        <Route path="/trades" element={<TradeHistory />} />
-        <Route path="/trade/:id" element={<Trade />} />
-        <Route path="/trades/buy" element={<NewTrade type="buy" />} />
-        <Route path="/trades/sell" element={<NewTrade type="sell" />} />
-      </Routes>
-    </BrowserRouter>
+        <Route path="trade/:id" element={<Trade />} />
+        <Route path="trades" element={<TradeHistory />} />
+        <Route path="trades/buy" element={<NewTrade type="buy" />} />
+        <Route path="trades/sell" element={<NewTrade type="sell" />} />
+      </Route>
+    </Routes>
+  )
+}
+function Layout() {
+  return (
+    <div>
+      <Navbar />
+
+      <Outlet />
+    </div>
   )
 }
 
