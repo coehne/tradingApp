@@ -82,7 +82,7 @@ function Navbar() {
                 <NavigationMenuItem to="/transactions">
                   Transactions
                 </NavigationMenuItem>
-                <NavigationMenuItem to="/">Trades</NavigationMenuItem>
+                <NavigationMenuItem to="/trades">Trades</NavigationMenuItem>
               </div>
             </div>
             {/* secondary nav */}
@@ -115,7 +115,7 @@ function Navbar() {
               Transactions
             </MobileNavigationMenuItem>
             <MobileNavigationMenuItem
-              to="#"
+              to="/trades"
               toggleMenu={() => setIsOpen(false)}
             >
               Trades

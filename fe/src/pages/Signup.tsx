@@ -1,6 +1,7 @@
-import axios from "axios"
 import { useForm } from "react-hook-form"
 import { FormContainer, InputText } from "../components/atoms/FormElements"
+import axios from "../utils/apiClient"
+import { useNavigate } from "react-router-dom"
 
 interface FormData {
   firstName: string
@@ -15,8 +16,13 @@ function Signup() {
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
 
+  const navigate = useNavigate()
+
   const onSubmit = handleSubmit(({ email, password, firstName }) => {
-    console.log({ email, password, firstName })
+    axios
+      .post("/identity/signup", { email, password, firstName })
+      .then(() => navigate("/", { replace: true }))
+      .catch((error) => console.log(error))
   })
 
   return (

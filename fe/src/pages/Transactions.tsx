@@ -1,6 +1,17 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { Transaction } from "../models/Transaction"
+import axios from "../utils/apiClient"
 
 function Transactions() {
+  const [data, setData] = useState<Transaction[] | undefined>()
+  useEffect(() => {
+    axios
+      .get("transaction")
+      .then((res) => setData(res.data))
+      .catch((error) => console.log(error))
+  }, [])
+
+  console.log(data)
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col ">
       <div className="max-w-5xl w-full mx-auto my-10">
@@ -12,13 +23,13 @@ function Transactions() {
                   Transaction
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Color
+                  Amount
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Category
+                  Type
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Price
+                  Amount
                 </th>
                 <th scope="col" className="px-6 py-3">
                   <span className="sr-only">Edit</span>
@@ -26,25 +37,33 @@ function Transactions() {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                >
-                  Apple MacBook Pro 17"
-                </th>
-                <td className="px-6 py-4">Sliver</td>
-                <td className="px-6 py-4">Laptop</td>
-                <td className="px-6 py-4">$2999</td>
-                <td className="px-6 py-4 text-right">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              {data?.map((tx) => {
+                return (
+                  <tr
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    key={tx.id}
                   >
-                    Edit
-                  </a>
-                </td>
-              </tr>
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                    >
+                      {tx.trade?.id === 0 ? "Withdraw" : tx.trade?.id}
+                    </th>
+                    <td className="px-6 py-4">Sliver</td>
+                    <td className="px-6 py-4">Laptop</td>
+                    <td className="px-6 py-4"> {tx.amount}</td>
+                    <td className="px-6 py-4 text-right">
+                      <a
+                        href="/"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Edit
+                      </a>
+                    </td>
+                  </tr>
+                )
+              })}
+
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th
                   scope="row"
