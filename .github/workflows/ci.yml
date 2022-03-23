@@ -21,12 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: cd fe
+    - run: cd ./fe
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
-        path: fe/
-        node-version: ${{ matrix.node-version }}
+        node-version-file: '.nvmrc'
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
