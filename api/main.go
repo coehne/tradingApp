@@ -13,6 +13,7 @@ import (
 //TODO:
 // - Further abstract token validation and user parsing from token
 // - Fieldvalidations (https://medium.com/@apzuk3/input-validation-in-golang-bc24cdec1835)
+// - Consistency in error handling!
 
 func main() {
 	// Get .env variables

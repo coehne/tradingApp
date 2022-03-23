@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"errors"
+
 	"github.com/dakicka/tradingApp/api/database"
 	"github.com/dakicka/tradingApp/api/integration"
 	"github.com/dakicka/tradingApp/api/models"
@@ -10,6 +12,14 @@ import (
 type CreateTradeRequest struct {
 	Symbol string `json:"symbol"`
 	Qty    int    `json:"qty" validate:"required"`
+}
+
+func FindTrade(id int, trade *models.Trade) error {
+	database.DB.Find(&trade, "id = ?", id)
+	if trade.ID == 0 {
+		return errors.New("Trade does not exist")
+	}
+	return nil
 }
 
 func CreateTrade(c *fiber.Ctx) error {
@@ -120,5 +130,31 @@ func GetTrades(c *fiber.Ctx) error {
 	database.DB.Find(&trades, "user_id = ?", user.ID)
 
 	return c.Status(fiber.StatusOK).JSON(trades)
+
+}
+func GetTrade(c *fiber.Ctx) error {
+	// Get user from token
+	user, err := GetUserFromToken(c)
+	// Return 401 if invalid or no token provided
+	if err != nil {
+		c.Status(fiber.StatusUnauthorized)
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Unauthorized",
+		})
+	}
+	// Get tradeId from params
+	id, err := c.ParamsInt("id")
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON("Please ensure that :id is an integer")
+	}
+
+	trade := models.Trade{}
+	if err := FindTrade(id, &trade); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(err.Error())
+	}
+
+	database.DB.Find(&trade, "user_id = ?", user.ID)
+
+	return c.Status(fiber.StatusOK).JSON(trade)
 
 }
