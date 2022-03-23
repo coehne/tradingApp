@@ -25,6 +25,7 @@ function Depot() {
 
   txData?.map((tx) => {
     sumCash += tx.amount
+    return ""
   })
 
   return (

@@ -35,7 +35,7 @@ jobs:
       uses: burnett01/rsync-deployments@4.1
       with:
         switches: -avzr --delete
-        path: /fe/build
+        path: /fe/build/*
         remote_path: /home/${{ secrets.UBERSPACE_USER }}/html/
         remote_host: ${{ secrets.UBERSPACE_HOST }}
         remote_user: ${{ secrets.UBERSPACE_USER }}
