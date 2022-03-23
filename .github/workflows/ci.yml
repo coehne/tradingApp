@@ -23,7 +23,7 @@ jobs:
         node-version: '17'
         cache: 'npm'
         cache-dependency-path: fe/package-lock.json
-    - run: cd ./fe
+    - run: cd fe
     - run: npm ci
     - run: npm run build --if-present
 
