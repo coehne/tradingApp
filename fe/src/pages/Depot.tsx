@@ -98,7 +98,7 @@ function Depot() {
                 <td></td>
                 <td></td>
                 <td className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                  Summe:
+                  Sum stocks:
                 </td>
                 <td>{numberToUSD(sumStocks)}</td>
               </tr>
