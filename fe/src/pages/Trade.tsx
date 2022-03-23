@@ -13,7 +13,7 @@ function Trade() {
       .get(`trade/${id}`)
       .then((res) => setData(res.data))
       .catch((error) => console.log(error))
-  }, [])
+  }, [id])
   return (
     <div>
       <div className="min-h-screen bg-gray-200 flex flex-col py-8">

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Transaction } from "../models/Transaction"
 import axios from "../utils/apiClient"
-import { format, parseISO } from "date-fns"
 import { numberToUSD, stringToDate } from "../utils/formatting"
 
 function Transactions() {
@@ -17,6 +16,20 @@ function Transactions() {
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col ">
       <div className="max-w-5xl w-full mx-auto my-10">
+        <a
+          href="/transactions/deposit"
+          className="py-2 px-5 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
+        >
+          Deposit
+        </a>
+        <a
+          href="/transactions/withdraw"
+          className="mx-4 py-2 px-5 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
+        >
+          Withdraw
+        </a>
+      </div>
+      <div className="max-w-5xl w-full mx-auto">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
