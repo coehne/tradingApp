@@ -13,6 +13,8 @@ import Transactions from "./pages/Transactions"
 //TODO:
 // - AuthProvider abstraction
 // - AuthContext
+// - Handle loading state
+// - Handle error state
 
 function App() {
   return (
