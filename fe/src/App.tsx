@@ -7,6 +7,10 @@ import Signup from "./pages/Signup"
 import Trades from "./pages/Trades"
 import Transactions from "./pages/Transactions"
 
+//TODO:
+// - AuthProvider abstraction
+// - AuthContext
+
 function App() {
   return (
     <BrowserRouter>
