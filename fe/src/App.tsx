@@ -3,7 +3,8 @@ import "./App.css"
 import Navbar from "./components/molecules/Navbar"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
-import NewTransaction from "./pages/NewTransaction"
+import NewTrade from "./pages/NewTrade"
+import NewTsx from "./pages/NewTsx"
 import Signup from "./pages/Signup"
 import Trade from "./pages/Trade"
 import Trades from "./pages/Trades"
@@ -24,14 +25,16 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route
           path="/transactions/deposit"
-          element={<NewTransaction type={"deposit"} />}
+          element={<NewTsx type={"deposit"} />}
         />
         <Route
           path="/transactions/withdraw"
-          element={<NewTransaction type={"withdraw"} />}
+          element={<NewTsx type={"withdraw"} />}
         />
         <Route path="/trades" element={<Trades />} />
         <Route path="/trade/:id" element={<Trade />} />
+        <Route path="/trades/buy" element={<NewTrade type="buy" />} />
+        <Route path="/trades/sell" element={<NewTrade type="sell" />} />
       </Routes>
     </BrowserRouter>
   )

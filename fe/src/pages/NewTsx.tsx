@@ -1,14 +1,15 @@
 import { ErrorMessage } from "@hookform/error-message"
-import axios from "../../utils/apiClient"
+import axios from "../utils/apiClient"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { TransactionType } from "../../pages/NewTransaction"
+
+type TransactionType = "withdraw" | "deposit"
 
 interface FormData {
   amount: number
 }
 
-export const NewTsxForm: React.FC<{ type: TransactionType }> = ({ type }) => {
+const NewTsx: React.FC<{ type: TransactionType }> = ({ type }) => {
   const {
     register,
     handleSubmit,
@@ -55,3 +56,5 @@ export const NewTsxForm: React.FC<{ type: TransactionType }> = ({ type }) => {
     </div>
   )
 }
+
+export default NewTsx

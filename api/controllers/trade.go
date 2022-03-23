@@ -17,7 +17,7 @@ type CreateTradeRequest struct {
 func FindTrade(id int, trade *models.Trade) error {
 	database.DB.Find(&trade, "id = ?", id)
 	if trade.ID == 0 {
-		return errors.New("Trade does not exist")
+		return errors.New("trade does not exist")
 	}
 	return nil
 }
