@@ -1,9 +1,7 @@
-import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
 import { FormContainer, InputText } from "../components/atoms/FormElements"
-import { useAuth } from "../context/AuthContext"
-import { useAsync } from "../hooks/useAsync"
+import axios from "../utils/apiClient"
+import { useNavigate } from "react-router-dom"
 
 interface FormData {
   email: string
@@ -11,20 +9,19 @@ interface FormData {
 }
 
 function Login() {
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
-  const { login } = useAuth()
-  const { run, isSuccess } = useAsync<any>()
+
+  const navigate = useNavigate()
   const onSubmit = handleSubmit(({ email, password }) => {
-    run(login({ email, password }))
+    axios
+      .post("/identity/login", { email, password })
+      .then(() => navigate("/", { replace: true }))
+      .catch((error) => console.log(error))
   })
-  useEffect(() => {
-    isSuccess && navigate("/", { replace: true })
-  }, [isSuccess, navigate])
 
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col justify-center">

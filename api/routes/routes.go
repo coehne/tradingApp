@@ -15,6 +15,7 @@ func Setup(app *fiber.App) {
 	// Trade endpoint
 	app.Post("api/trade", controllers.CreateTrade)
 	app.Get("api/trade", controllers.GetTrades)
+	app.Get("api/trade/:id", controllers.GetTrade)
 
 	// Transaction endpoint
 	app.Post("/api/transaction", controllers.CreateTransaction)
