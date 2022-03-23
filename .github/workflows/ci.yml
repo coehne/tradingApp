@@ -25,17 +25,27 @@ jobs:
         cache-dependency-path: fe/package-lock.json
     - run: cd fe && npm ci
     - run: cd fe && npm run build --if-present
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: 'reactApp'
+        # A file, directory or wildcard pattern that describes what to upload
+        path: fe/build
+
 
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      with:
+        name: 'reactApp'
+    - run: cp index.html 404.html
     - name: rsync deployments
       uses: burnett01/rsync-deployments@4.1
       with:
         switches: -avzr --delete
-        path: /fe/build/*
+        path: /*
         remote_path: /home/${{ secrets.UBERSPACE_USER }}/html/
         remote_host: ${{ secrets.UBERSPACE_HOST }}
         remote_user: ${{ secrets.UBERSPACE_USER }}
