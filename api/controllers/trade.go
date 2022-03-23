@@ -3,6 +3,7 @@ package controllers
 import (
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/dakicka/tradingApp/api/database"
 	"github.com/dakicka/tradingApp/api/integration"
@@ -55,7 +56,7 @@ func CreateTrade(c *fiber.Ctx) error {
 	trade.Price = stock.LatestPrice
 	trade.UserID = user.ID
 	trade.Qty = data.Qty
-	trade.Symbol = data.Symbol
+	trade.Symbol = strings.ToUpper(data.Symbol)
 	trade.CompanyName = stock.CompanyName
 
 	// Build transaction
@@ -87,7 +88,7 @@ func CreateTrade(c *fiber.Ctx) error {
 		trades := []models.Trade{}
 		database.DB.Find(&trades, "user_id = ?", user.ID)
 		for _, trade := range trades {
-			if data.Symbol == trade.Symbol {
+			if strings.ToUpper(data.Symbol) == trade.Symbol {
 				stocks += trade.Qty
 
 			}
