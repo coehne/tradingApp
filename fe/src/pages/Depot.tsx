@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from "react"
 import { Trade } from "../models/Trade"
+import { Transaction } from "../models/Transaction"
 import axios from "../utils/apiClient"
 import { numberToUSD } from "../utils/formatting"
 
 function Depot() {
   const [data, setData] = useState<Trade[] | undefined>(undefined)
+  const [txData, setTxData] = useState<Transaction[] | undefined>(undefined)
   useEffect(() => {
     axios
       .get("trades")
       .then((res) => setData(res.data))
       .catch((error) => console.log(error))
   }, [])
+  useEffect(() => {
+    axios
+      .get("transaction")
+      .then((res) => setTxData(res.data))
+      .catch((error) => console.log(error))
+  }, [])
+
+  let sumStocks = 0
+  let sumCash = 0
+
+  txData?.map((tx) => {
+    sumCash += tx.amount
+  })
 
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col ">
@@ -34,7 +49,7 @@ function Depot() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  ID
+                  Position
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Company Name
@@ -54,7 +69,8 @@ function Depot() {
               </tr>
             </thead>
             <tbody>
-              {data?.map((trade) => {
+              {data?.map((trade, i) => {
+                sumStocks += trade.qty * trade.price
                 return (
                   <tr
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
@@ -64,7 +80,7 @@ function Depot() {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
                     >
-                      {trade.id}
+                      {i + 1}
                     </th>
                     <td className="px-6 py-4">{trade.companyName}</td>
                     <td className="px-6 py-4">{trade.symbol}</td>
@@ -76,6 +92,38 @@ function Depot() {
                   </tr>
                 )
               })}
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                  Summe:
+                </td>
+                <td>{numberToUSD(sumStocks)}</td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                  Cash:
+                </td>
+                <td>{numberToUSD(sumCash)}</td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                  Total:
+                </td>
+                <td className="font-medium text-gray-900 dark:text-white whitespace-nowrap underline">
+                  {numberToUSD(sumCash + sumStocks)}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
