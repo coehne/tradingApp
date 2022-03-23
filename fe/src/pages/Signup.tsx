@@ -1,9 +1,6 @@
-import { useEffect } from "react"
+import axios from "axios"
 import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
 import { FormContainer, InputText } from "../components/atoms/FormElements"
-import { useAuth } from "../context/AuthContext"
-import { useAsync } from "../hooks/useAsync"
 
 interface FormData {
   firstName: string
@@ -12,22 +9,15 @@ interface FormData {
 }
 
 function Signup() {
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
 
-  const { signup } = useAuth()
-  const { run, isSuccess } = useAsync<any>()
   const onSubmit = handleSubmit(({ email, password, firstName }) => {
-    run(signup({ email, password, firstName }))
+    console.log({ email, password, firstName })
   })
-
-  useEffect(() => {
-    isSuccess && navigate("/", { replace: true })
-  }, [isSuccess, navigate])
 
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col justify-center">
