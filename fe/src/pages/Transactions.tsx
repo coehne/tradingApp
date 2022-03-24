@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { Transaction } from "../models/Transaction"
 import axios from "../utils/apiClient"
 import { numberToUSD, stringToDate } from "../utils/formatting"
@@ -16,18 +17,18 @@ function Transactions() {
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col ">
       <div className="max-w-5xl w-full mx-auto my-10">
-        <a
-          href="/transactions/deposit"
+        <Link
+          to="/transactions/deposit"
           className="py-2 px-5 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
         >
           Deposit
-        </a>
-        <a
-          href="/transactions/withdraw"
+        </Link>
+        <Link
+          to="/transactions/withdraw"
           className="mx-4 py-2 px-5 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
         >
           Withdraw
-        </a>
+        </Link>
       </div>
       <div className="max-w-5xl w-full mx-auto">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 //TODO: Refactor into components
 
@@ -9,13 +10,13 @@ function Navbar() {
     to: string
     toggleMenu?: () => void
   }> = ({ children, to, toggleMenu }) => (
-    <a
-      href={to}
+    <Link
+      to={to}
       onClick={toggleMenu}
       className="block py-2 px-4 text-sm hover:bg-gray-700 text-gray-200"
     >
       {children}
-    </a>
+    </Link>
   )
 
   const MobileNavigationHamburgerButton: React.FC<{
@@ -42,14 +43,14 @@ function Navbar() {
   const NavigationMenuItem: React.FC<{
     to: string
   }> = ({ children, to }) => (
-    <a href={to} className="py-5 px-3 text-gray-200 hover:text-green-600">
+    <Link to={to} className="py-5 px-3 text-gray-200 hover:text-green-600">
       {children}
-    </a>
+    </Link>
   )
 
   const Logo = () => (
     <div>
-      <a href="/" className="flex items-center py-5 px-2 text-gray-400">
+      <Link to="/" className="flex items-center py-5 px-2 text-gray-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 mr-1 text-green-600"
@@ -65,7 +66,7 @@ function Navbar() {
           />
         </svg>
         <span className="font-bold text-green-600">Trading App</span>
-      </a>
+      </Link>
     </div>
   )
 
@@ -92,12 +93,12 @@ function Navbar() {
               <NavigationMenuItem to="login">Login</NavigationMenuItem>
 
               {/* TODO: Abstract into button component */}
-              <a
-                href="/signup"
+              <Link
+                to="/signup"
                 className="py-2 px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
               >
                 Signup
-              </a>
+              </Link>
             </div>
             {/* Mobile button */}
             <div className="md:hidden flex items-center">
@@ -122,18 +123,18 @@ function Navbar() {
             >
               Trade History
             </MobileNavigationMenuItem>
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="py-2 my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
             >
               Login
-            </a>
-            <a
-              href="/signup"
+            </Link>
+            <Link
+              to="/signup"
               className="py-2  my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
             >
               Signup
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

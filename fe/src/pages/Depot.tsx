@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { Trade } from "../models/Trade"
 import { Transaction } from "../models/Transaction"
 import axios from "../utils/apiClient"
@@ -31,18 +32,18 @@ function Depot() {
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col ">
       <div className="max-w-5xl w-full mx-auto my-10">
-        <a
-          href="/trades/buy"
+        <Link
+          to="/trades/buy"
           className="py-2 px-5 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
         >
           Buy
-        </a>
-        <a
-          href="/trades/sell"
+        </Link>
+        <Link
+          to="/trades/sell"
           className="mx-4 py-2 px-5 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
         >
           Sell
-        </a>
+        </Link>
       </div>
       <div className="max-w-5xl w-full mx-auto">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
