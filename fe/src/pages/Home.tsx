@@ -1,8 +1,19 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Depot from "./Depot"
+import { useAuth } from "../context/AuthContext"
 
 function Home() {
-  return <Depot />
+  const { user } = useAuth()
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
+  return (
+    <div>
+      <p>{`Hi ${user?.firstName}`}</p>
+      <Depot />
+    </div>
+  )
 }
 
 export default Home

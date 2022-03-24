@@ -13,7 +13,6 @@ function Transactions() {
       .catch((error) => console.log(error))
   }, [])
 
-  console.log(data)
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col ">
       <div className="max-w-5xl w-full mx-auto my-10">
