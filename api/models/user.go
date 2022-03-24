@@ -6,7 +6,7 @@ type User struct {
 	ID        uint      `json:"id"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updateddAt"`
-	Email     string    `gorm:"unique"`
+	Email     string    `json:"email" gorm:"unique"`
 	Hash      []byte    `json:"-"`
 	FirstName string    `json:"firstName"`
 
