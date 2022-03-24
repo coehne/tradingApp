@@ -33,7 +33,7 @@ function App() {
           element={<NewTsx type={"withdraw"} />}
         />
         <Route path="trade/:id" element={<Trade />} />
-        <Route path="trades" element={<TradeHistory />} />
+        <Route path="tradehistory" element={<TradeHistory />} />
         <Route path="trades/buy" element={<NewTrade type="buy" />} />
         <Route path="trades/sell" element={<NewTrade type="sell" />} />
       </Route>

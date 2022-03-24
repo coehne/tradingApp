@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 //TODO: Refactor into components
 
@@ -9,15 +9,23 @@ function Navbar() {
   const MobileNavigationMenuItem: React.FC<{
     to: string
     toggleMenu?: () => void
-  }> = ({ children, to, toggleMenu }) => (
-    <Link
-      to={to}
-      onClick={toggleMenu}
-      className="block py-2 px-4 text-sm hover:bg-gray-700 text-gray-200"
-    >
-      {children}
-    </Link>
-  )
+  }> = ({ children, to, toggleMenu }) => {
+    const activeClassNames =
+      "block py-2 px-4 text-sm hover:bg-gray-700 text-green-600"
+    const inActiveClassNames =
+      "block py-2 px-4 text-sm hover:bg-gray-700 text-gray-200"
+    return (
+      <NavLink
+        to={to}
+        onClick={toggleMenu}
+        className={({ isActive }) =>
+          isActive ? activeClassNames : inActiveClassNames
+        }
+      >
+        {children}
+      </NavLink>
+    )
+  }
 
   const MobileNavigationHamburgerButton: React.FC<{
     toggleMenu: () => void
@@ -42,11 +50,20 @@ function Navbar() {
 
   const NavigationMenuItem: React.FC<{
     to: string
-  }> = ({ children, to }) => (
-    <Link to={to} className="py-5 px-3 text-gray-200 hover:text-green-600">
-      {children}
-    </Link>
-  )
+  }> = ({ children, to }) => {
+    const activeClassNames = "py-5 px-3 text-green-600 hover:text-green-600"
+    const inActiveClassNames = "py-5 px-3 text-gray-200 hover:text-green-600"
+    return (
+      <NavLink
+        to={to}
+        className={({ isActive }) =>
+          isActive ? activeClassNames : inActiveClassNames
+        }
+      >
+        {children}
+      </NavLink>
+    )
+  }
 
   const Logo = () => (
     <div>
@@ -83,7 +100,7 @@ function Navbar() {
                 <NavigationMenuItem to="/transactions">
                   Transactions
                 </NavigationMenuItem>
-                <NavigationMenuItem to="/trades">
+                <NavigationMenuItem to="/tradehistory">
                   Trade History
                 </NavigationMenuItem>
               </div>
@@ -118,17 +135,17 @@ function Navbar() {
               Transactions
             </MobileNavigationMenuItem>
             <MobileNavigationMenuItem
-              to="/trades"
+              to="/tradehistory"
               toggleMenu={() => setIsOpen(false)}
             >
               Trade History
             </MobileNavigationMenuItem>
-            <Link
+            <NavLink
               to="/login"
               className="py-2 my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
             >
               Login
-            </Link>
+            </NavLink>
             <Link
               to="/signup"
               className="py-2  my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
