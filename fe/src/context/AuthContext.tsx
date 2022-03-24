@@ -8,8 +8,8 @@ import {
 } from "react"
 import * as auth from "../AuthProvider"
 import { User } from "../models/User"
-import FullPageSpinner from "../components/molecules/FullPageSpinner"
-import FullPageErrorFallback from "../components/molecules/FullPageErrorFallback"
+import FullPageSpinner from "../components/FullPageSpinner"
+import FullPageErrorFallback from "../components/FullPageErrorFallback"
 import { useAsync } from "../hooks/useAsync"
 
 interface AuthContextType {

@@ -1,6 +1,6 @@
 import React from "react"
-import { BuyForm } from "../components/molecules/BuyForm"
-import { SellForm } from "../components/molecules/SellForm"
+import { BuyForm } from "../components/BuyForm"
+import { SellForm } from "../components/SellForm"
 
 type TradeType = "buy" | "sell"
 

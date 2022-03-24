@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { TradeCard } from "../components/molecules/TradeCard"
+import { TradeCard } from "../components/TradeCard"
 import { useParams } from "react-router-dom"
 import axios from "../utils/apiClient"
 import { Trade as ITrade } from "../models/Trade"

@@ -1,4 +1,4 @@
-import axios from "../../utils/apiClient"
+import axios from "../utils/apiClient"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { ErrorMessage } from "@hookform/error-message"

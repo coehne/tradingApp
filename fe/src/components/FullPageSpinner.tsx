@@ -1,5 +1,5 @@
 import React from "react"
-import { SpinnerGreen } from "../atoms/Spinner"
+import { SpinnerGreen } from "./Spinner"
 
 function FullPageSpinner() {
   return (

@@ -1,5 +1,5 @@
-import { Trade } from "../../models/Trade"
-import { numberToUSD } from "../../utils/formatting"
+import { Trade } from "../models/Trade"
+import { numberToUSD } from "../utils/formatting"
 
 export const TradeCard: React.FC<{ trade: Trade | undefined }> = ({
   trade,

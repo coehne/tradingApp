@@ -1,7 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import "./App.css"
-import FullPageSpinner from "./components/molecules/FullPageSpinner"
-import Navbar from "./components/molecules/Navbar"
+import FullPageError404 from "./components/FullPageError404"
+import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import NewTrade from "./pages/NewTrade"
@@ -37,7 +37,7 @@ function App() {
         <Route path="tradehistory" element={<TradeHistory />} />
         <Route path="trades/buy" element={<NewTrade type="buy" />} />
         <Route path="trades/sell" element={<NewTrade type="sell" />} />
-        <Route path="spinner" element={<FullPageSpinner />} />
+        <Route path="*" element={<FullPageError404 />} />
       </Route>
     </Routes>
   )

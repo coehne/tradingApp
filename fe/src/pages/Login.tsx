@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { FormContainer, InputText } from "../components/atoms/FormElements"
+import { FormContainer, InputText } from "../components/FormElements"
 import axios from "../utils/apiClient"
 import { useNavigate } from "react-router-dom"
 
