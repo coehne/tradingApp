@@ -149,7 +149,7 @@ func GetTradesForDepot(c *fiber.Ctx) error {
 
 	trades := []models.Trade{}
 	// database.DB.Find(&trades, "user_id = ?", user.ID)
-	database.DB.Model(&models.Trade{}).Select("company_name, symbol, sum(qty) as qty").Group("symbol").Having("user_id = ?", user.ID).Find(&trades)
+	database.DB.Model(&models.Trade{}).Select("company_name, symbol, sum(qty) as qty").Group("symbol").Where("user_id = ?", user.ID).Find(&trades)
 
 	depoTrades := []models.Trade{}
 	// Get current price and clean data
