@@ -60,7 +60,7 @@ export const SellForm = () => {
               })}
               type="number"
               className="w-full p-2 border border-gray-300 rounded mt-1 text-black"
-              placeholder="Number"
+              placeholder="Volume"
             />
             <ErrorMessage errors={errors} name={"amount"} />
           </fieldset>

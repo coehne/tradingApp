@@ -6,18 +6,15 @@ import (
 )
 
 func GetQuote(c *fiber.Ctx) error {
-	var data map[string]string
+	symbol := c.Params("symbol")
 
-	if err := c.BodyParser(&data); err != nil {
-		return err
-	}
 	// Get stock info from iex cloud API
-	quote, err := integration.GetStockInfo(data["symbol"])
+	quote, err := integration.GetStockInfo(symbol)
 	if err != nil {
+		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"message": "Could not get stock data",
+			"message": "invalid symbol or stock data",
 		})
 	}
-
 	return c.JSON(quote)
 }
