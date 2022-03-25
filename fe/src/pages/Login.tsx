@@ -16,7 +16,7 @@ function Login() {
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
 
-  const { run, error, isLoading, isSuccess } = useAsync<any>()
+  const { run, error } = useAsync<any>()
   const { login } = useAuth()
 
   const onSubmit = handleSubmit(({ email, password }) =>
