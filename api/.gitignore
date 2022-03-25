@@ -17,5 +17,6 @@ sql.db
 # Ignore .env
 .env
 
+/build
 # Dependency directories (remove the comment below to include it)
 # vendor/
