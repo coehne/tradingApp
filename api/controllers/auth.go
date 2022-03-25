@@ -14,21 +14,38 @@ import (
 
 var verySecretKey = os.Getenv("VERY_SECRET_KEY")
 
-func Register(c *fiber.Ctx) error {
-	var data map[string]string
+type SignupRequest struct {
+	FirstName string `json:"firstName"`
+	Email     string `json:"email" validate:"required"`
+	Password  string `json:"password"`
+}
 
-	if err := c.BodyParser(&data); err != nil {
+func Register(c *fiber.Ctx) error {
+	var request SignupRequest
+
+	if err := c.BodyParser(&request); err != nil {
 		return err
 	}
 
-	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
+	password, _ := bcrypt.GenerateFromPassword([]byte(request.Password), 14)
 	user := models.User{
-		FirstName: data["firstName"],
-		Email:     data["email"],
+		FirstName: request.FirstName,
+		Email:     request.Email,
 		Hash:      password,
 	}
+	database.DB.Where("email = ?", request.Email).First(&user)
 
+	// If email is already in db, return 400
+	if user.ID != 0 {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"message": "User already registered",
+		})
+	}
+
+	//
 	database.DB.Create(&user)
+	c.Status(fiber.StatusOK)
 	return c.JSON(user)
 }
 
@@ -118,13 +135,13 @@ func User(c *fiber.Ctx) error {
 }
 
 func Logout(c *fiber.Ctx) error {
+	// Set expired new cookie to invalidate the old one
 	cookie := fiber.Cookie{
 		Name:     "accessToken",
 		Value:    "",
 		Expires:  time.Now().Add(-time.Hour),
 		HTTPOnly: true,
 	}
-
 	c.Cookie(&cookie)
 
 	return c.JSON(fiber.Map{

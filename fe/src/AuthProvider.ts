@@ -18,7 +18,7 @@ const login = ({
     handleUserResponse
   ).catch((error: AxiosError) => Promise.reject({
     message: error.message,
-    statusCode: error.response?.status,}
+    statusCode: error.response?.status}
   ))
 }
 const signup = ({
@@ -32,7 +32,10 @@ const signup = ({
 }) => {
   return axios.post("identity/signup/", { email, password, firstName }).then(() =>
     handleUserResponse
-  )
+  ).catch((error: AxiosError) => Promise.reject({
+    message: error.message,
+    statusCode: error.response?.status}
+  ))
 }
 
 const logout = async () => {

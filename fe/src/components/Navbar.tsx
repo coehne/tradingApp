@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 
 //TODO: Refactor into components
@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext"
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { user, logout } = useAuth()
-
+  const navigate = useNavigate()
   const MobileNavigationMenuItem: React.FC<{
     to: string
     toggleMenu?: () => void
@@ -88,6 +88,10 @@ function Navbar() {
       </Link>
     </div>
   )
+  const onLogout = () => {
+    logout()
+    navigate("/login", { replace: true })
+  }
 
   return (
     <>
@@ -125,7 +129,7 @@ function Navbar() {
                 </div>
               ) : (
                 <button
-                  onClick={() => logout()}
+                  onClick={() => onLogout()}
                   className="px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300 h-8"
                 >
                   Logout
@@ -162,7 +166,7 @@ function Navbar() {
             )}
             {user ? (
               <button
-                onClick={() => logout()}
+                onClick={() => onLogout()}
                 className="px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300 my-3"
               >
                 Logout

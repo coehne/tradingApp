@@ -3,6 +3,8 @@ import { FormContainer, InputText } from "../components/FormElements"
 import { useAsync } from "../hooks/useAsync"
 import { useAuth } from "../context/AuthContext"
 import { Alert } from "../components/Alert"
+import { useNavigate } from "react-router-dom"
+import { SubmitButton } from "../components/Button"
 
 interface FormData {
   email: string
@@ -10,18 +12,20 @@ interface FormData {
 }
 
 function Login() {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
 
-  const { run, error } = useAsync<any>()
+  const { run, error, isSuccess, isLoading } = useAsync<any>()
   const { login } = useAuth()
 
   const onSubmit = handleSubmit(({ email, password }) =>
     run(login({ email, password }))
   )
+  isSuccess && navigate("/", { replace: true })
 
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col justify-center">
@@ -59,11 +63,7 @@ function Login() {
               <Alert msg={"Your password or email is incorrect!"} />
             )}
 
-            <div>
-              <button className="w-full py-2 px-4 bg-primary hover:bg-green-600 rounded text-black font-bold">
-                Submit
-              </button>
-            </div>
+            <SubmitButton isLoading={isLoading}>Submit</SubmitButton>
           </form>
         </FormContainer>
       </div>
