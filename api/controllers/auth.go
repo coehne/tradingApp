@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/dakicka/tradingApp/api/database"
@@ -43,8 +42,11 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	//
+	// Create user and set cookie
 	database.DB.Create(&user)
+	SetCookieForUser(c, user.ID)
+
+	// Return the newly created user
 	c.Status(fiber.StatusOK)
 	return c.JSON(user)
 }
@@ -78,31 +80,7 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
-	// Create the Claims
-	claims := &jwt.StandardClaims{
-		ExpiresAt: jwt.At(time.Now().Add(time.Hour * 24)),
-		Issuer:    strconv.Itoa(int(user.ID)),
-	}
-
-	// Create token with claims
-	tokenData := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	token, err := tokenData.SignedString([]byte(verySecretKey))
-
-	if err != nil {
-		c.Status(fiber.StatusInternalServerError)
-		return c.JSON(fiber.Map{
-			"message": "could not login",
-		})
-
-	}
-
-	cookie := fiber.Cookie{
-		Name:     "accessToken",
-		Value:    token,
-		Expires:  time.Now().Add(time.Hour * 24),
-		HTTPOnly: true,
-	}
-	c.Cookie(&cookie)
+	SetCookieForUser(c, user.ID)
 
 	return c.JSON(fiber.Map{
 		"message": "success",
