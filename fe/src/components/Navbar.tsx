@@ -1,10 +1,12 @@
 import React, { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
 //TODO: Refactor into components
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const { user, logout } = useAuth()
 
   const MobileNavigationMenuItem: React.FC<{
     to: string
@@ -96,27 +98,41 @@ function Navbar() {
               {/* Logo */}
               <Logo />
               {/* primary nav */}
-              <div className="hidden md:flex items-center space-x-1 ">
-                <NavigationMenuItem to="/transactions">
-                  Transactions
-                </NavigationMenuItem>
-                <NavigationMenuItem to="/tradehistory">
-                  Trade History
-                </NavigationMenuItem>
-              </div>
+              {user && (
+                <div className="hidden md:flex items-center space-x-1 ">
+                  <NavigationMenuItem to="/transactions">
+                    Transactions
+                  </NavigationMenuItem>
+                  <NavigationMenuItem to="/tradehistory">
+                    Trade History
+                  </NavigationMenuItem>
+                </div>
+              )}
             </div>
             {/* secondary nav */}
             <div className="hidden md:flex items-center space-x-1">
-              <NavigationMenuItem to="login">Login</NavigationMenuItem>
+              {!user ? (
+                <div>
+                  <NavigationMenuItem to="login">Login</NavigationMenuItem>
 
-              {/* TODO: Abstract into button component */}
-              <Link
-                to="/signup"
-                className="py-2 px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
-              >
-                Signup
-              </Link>
+                  {/* TODO: Abstract into button component */}
+                  <Link
+                    to="/signup"
+                    className="py-2 px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
+                  >
+                    Signup
+                  </Link>
+                </div>
+              ) : (
+                <button
+                  onClick={() => logout()}
+                  className="px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300 h-8"
+                >
+                  Logout
+                </button>
+              )}
             </div>
+
             {/* Mobile button */}
             <div className="md:hidden flex items-center">
               <MobileNavigationHamburgerButton
@@ -128,30 +144,45 @@ function Navbar() {
         {/* Mobile menu */}
         <div className={!isOpen ? "hidden" : "md:hidden text-center"}>
           <div className="flex flex-col p-3">
-            <MobileNavigationMenuItem
-              to="/transactions"
-              toggleMenu={() => setIsOpen(false)}
-            >
-              Transactions
-            </MobileNavigationMenuItem>
-            <MobileNavigationMenuItem
-              to="/tradehistory"
-              toggleMenu={() => setIsOpen(false)}
-            >
-              Trade History
-            </MobileNavigationMenuItem>
-            <NavLink
-              to="/login"
-              className="py-2 my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
-            >
-              Login
-            </NavLink>
-            <Link
-              to="/signup"
-              className="py-2  my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
-            >
-              Signup
-            </Link>
+            {user && (
+              <div>
+                <MobileNavigationMenuItem
+                  to="/transactions"
+                  toggleMenu={() => setIsOpen(false)}
+                >
+                  Transactions
+                </MobileNavigationMenuItem>
+                <MobileNavigationMenuItem
+                  to="/tradehistory"
+                  toggleMenu={() => setIsOpen(false)}
+                >
+                  Trade History
+                </MobileNavigationMenuItem>
+              </div>
+            )}
+            {user ? (
+              <button
+                onClick={() => logout()}
+                className="px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300 my-3"
+              >
+                Logout
+              </button>
+            ) : (
+              <div className="flex flex-col p-3">
+                <NavLink
+                  to="/login"
+                  className="py-2 my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
+                >
+                  Login
+                </NavLink>
+                <Link
+                  to="/signup"
+                  className="py-2  my-2 px-3 w-full bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300"
+                >
+                  Signup
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>

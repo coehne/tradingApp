@@ -1,18 +1,16 @@
-import React, { useEffect } from "react"
-import Depot from "./Depot"
 import { useAuth } from "../context/AuthContext"
+import FullPageSpinner from "../components/FullPageSpinner"
+import { Suspense } from "react"
+import { AuthenticatedApp } from "./AuthenticatedApp"
+import UnauthenticatedApp from "./UnauthenticatedApp"
 
 function Home() {
   const { user } = useAuth()
-  useEffect(() => {
-    console.log(user)
-  }, [user])
 
   return (
-    <div>
-      <p>{`Hi ${user?.firstName}`}</p>
-      <Depot />
-    </div>
+    <Suspense fallback={<FullPageSpinner />}>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </Suspense>
   )
 }
 

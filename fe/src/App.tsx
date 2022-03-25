@@ -12,10 +12,7 @@ import TradeHistory from "./pages/Trades"
 import Transactions from "./pages/Transactions"
 
 //TODO:
-// - AuthProvider abstraction
-// - AuthContext
-// - Handle loading state
-// - Handle error state
+// - Handle the request for unauthorized routes
 
 function App() {
   return (

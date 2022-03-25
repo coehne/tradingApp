@@ -28,11 +28,10 @@ const bootstrapAppData = async () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   let user: User = null!
 
-  /* const hasCookie = document.cookie.match(
-    /^(.*;)?\s*accessToken\s*=\s*[^;]+(.*)?$/
-  ) */
-
-  await axios.get<User>("identity/me").then((res) => (user = res.data))
+  await axios
+    .get<User>("identity/me")
+    .then((res) => (user = res.data))
+    .catch((err) => console.error(err))
 
   return user
 }

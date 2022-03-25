@@ -102,8 +102,8 @@ func User(c *fiber.Ctx) error {
 
 	if err != nil {
 		c.Status(fiber.StatusUnauthorized)
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"message": "Unauthorized",
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"message": "no valid cookie found",
 		})
 	}
 

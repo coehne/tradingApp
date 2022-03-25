@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { FormContainer, InputText } from "../components/FormElements"
-import axios from "../utils/apiClient"
-import { useNavigate } from "react-router-dom"
+import { useAsync } from "../hooks/useAsync"
+import { useAuth } from "../context/AuthContext"
 
 interface FormData {
   email: string
@@ -15,13 +15,12 @@ function Login() {
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
 
-  const navigate = useNavigate()
-  const onSubmit = handleSubmit(({ email, password }) => {
-    axios
-      .post("/identity/login", { email, password })
-      .then(() => navigate("/", { replace: true }))
-      .catch((error) => console.log(error))
-  })
+  const { run, error, isLoading } = useAsync<any>()
+  const { login } = useAuth()
+
+  const onSubmit = handleSubmit(({ email, password }) =>
+    run(login({ email, password }))
+  )
 
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col justify-center">
