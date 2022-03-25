@@ -1,5 +1,6 @@
 import axios from "./utils/apiClient"
 import { User } from "./models/User"
+import { AxiosError } from "axios"
 
 const handleUserResponse = ({id, firstName, email}: User) => {
   
@@ -15,7 +16,10 @@ const login = ({
 }) => {
   return axios.post("identity/login/", { email, password }).then(() =>
     handleUserResponse
-  )
+  ).catch((error: AxiosError) => Promise.reject({
+    message: error.message,
+    statusCode: error.response?.status,}
+  ))
 }
 const signup = ({
   firstName,
@@ -35,7 +39,6 @@ const logout = async () => {
     axios.post("identity/logout")
  
 }
-
 
 export {
   login,

@@ -1,3 +1,5 @@
+import { Alert } from "./Alert"
+
 interface FullPageErrorFallbackProps {
   error:
     | (Error & {
@@ -19,12 +21,9 @@ const FullPageErrorFallback = ({ error }: FullPageErrorFallbackProps) => {
           Uh oh... You broke the app in exciting new ways which I did not
           predict. Try refreshing the app.
         </p>
-        <div
-          className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 my-8"
-          role="alert"
-        >
-          <span className="font-medium">Error Message:</span> {error?.message}
-        </div>
+        <Alert msg={`Error: ${error?.statusCode}!`}>
+          Message: {error?.message}
+        </Alert>
         <pre></pre>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import "./App.css"
 import FullPageError404 from "./components/FullPageError404"
+import FullPageErrorFallback from "./components/FullPageErrorFallback"
 import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -35,6 +36,12 @@ function App() {
         <Route path="trades/buy" element={<NewTrade type="buy" />} />
         <Route path="trades/sell" element={<NewTrade type="sell" />} />
         <Route path="*" element={<FullPageError404 />} />
+        <Route
+          path="error"
+          element={
+            <FullPageErrorFallback error={Error("Test error message")} />
+          }
+        />
       </Route>
     </Routes>
   )

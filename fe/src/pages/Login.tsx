@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { FormContainer, InputText } from "../components/FormElements"
 import { useAsync } from "../hooks/useAsync"
 import { useAuth } from "../context/AuthContext"
+import { Alert } from "../components/Alert"
 
 interface FormData {
   email: string
@@ -15,7 +16,7 @@ function Login() {
     formState: { errors },
   } = useForm<FormData>({ mode: "onSubmit" })
 
-  const { run, error, isLoading } = useAsync<any>()
+  const { run, error, isLoading, isSuccess } = useAsync<any>()
   const { login } = useAuth()
 
   const onSubmit = handleSubmit(({ email, password }) =>
@@ -54,6 +55,9 @@ function Login() {
             >
               Password
             </InputText>
+            {error && error.statusCode && error.statusCode >= 400 && (
+              <Alert msg={"Your password or email is incorrect!"} />
+            )}
 
             <div>
               <button className="w-full py-2 px-4 bg-primary hover:bg-green-600 rounded text-black font-bold">
