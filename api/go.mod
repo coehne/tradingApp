@@ -7,6 +7,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.30.0
 	github.com/joho/godotenv v1.4.0
 	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 	gorm.io/driver/sqlite v1.3.1
 	gorm.io/gorm v1.23.3
 )

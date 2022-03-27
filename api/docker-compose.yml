@@ -3,8 +3,8 @@ services:
   db:
     image: postgres:13.6-alpine
     environment:
-      POSTGRES_USER: tradapp
-      POSTGRES_PASSWORD: tradapp
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
       POSTGRES_DB: tradapp
     ports:
       - "5432:5432"
