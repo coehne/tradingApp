@@ -3,8 +3,11 @@ package main
 import (
 	"log"
 
+	"github.com/dakicka/tradingApp/api/api"
+	"github.com/dakicka/tradingApp/api/config"
 	"github.com/dakicka/tradingApp/api/database"
-	"github.com/dakicka/tradingApp/api/routes"
+	"github.com/dakicka/tradingApp/api/repository"
+	"github.com/dakicka/tradingApp/api/service"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
@@ -22,7 +25,14 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	database.Connect()
+	// load config
+	config, err := config.New()
+	if err != nil {
+		log.Fatalf("could not load config: %s", err)
+	}
+
+	d := database.New(config)
+	d.Migrate()
 
 	app := fiber.New()
 
@@ -31,7 +41,9 @@ func main() {
 	}))
 
 	// Setup all Routes
-	routes.Setup(app)
+	service := service.New(&repository.UsersSQL{})
+	api.NewUser(app, service)
+	//routes.Setup(app)
 
-	log.Fatal(app.Listen(":8000"))
+	log.Fatal(app.Listen(":8080"))
 }
