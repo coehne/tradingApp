@@ -26,23 +26,24 @@ func NewUser(app *fiber.App, service usecase.UseCases) {
 }
 
 func (ctr *userController) create(ctx *fiber.Ctx) error {
+
 	var req registerReq
 
 	// TODO: add validation here
-	if err := ctx.BodyParser(&req); err != nil {
-
+	err := ctx.BodyParser(&req)
+	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
 	}
 	// Pass down the user object through the clean architecture shells
-	user, err := ctr.RegisterUser(*ctx, req.FirstName, req.Email, req.Password)
-
-	// Remove clear text pw for security
-	req.Password = ""
+	user, err := ctr.RegisterUser(req.FirstName, req.Email, req.Password)
 
 	// Check if everything went well down the line
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
 	}
+
+	// Remove clear text pw for security
+	req.Password = ""
 
 	// Set cookie with accessToken
 	auth.SetCookieForUser(ctx, user.ID)
@@ -64,7 +65,7 @@ func (ctr *userController) get(ctx *fiber.Ctx) error {
 	}
 
 	// Pass down the user object through the clean architecture shells
-	user, err = ctr.GetUserFromId(*ctx, userId)
+	user, err = ctr.GetUserFromId(userId)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
 	}
@@ -85,7 +86,7 @@ func (ctr *userController) login(ctx *fiber.Ctx) error {
 	}
 
 	// Pass down the request data through the clean architecture shells to get user object
-	user, err := ctr.Login(*ctx, req.Email, req.Password)
+	user, err := ctr.Login(req.Email, req.Password)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
 	}

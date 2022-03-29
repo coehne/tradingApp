@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/dakicka/tradingApp/api/db"
 	"github.com/dakicka/tradingApp/api/repository"
 	"github.com/dakicka/tradingApp/api/usecase"
 )
@@ -14,4 +15,10 @@ type Service struct {
 func New(
 	ur repository.Users) usecase.UseCases {
 	return &Service{ur}
+}
+
+func Init(db *db.GormDB) usecase.UseCases {
+	return Service{
+		users: repository.NewUsersSQLRepo(db),
+	}
 }

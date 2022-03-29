@@ -1,4 +1,4 @@
-package database
+package db
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dakicka/tradingApp/api/config"
+	"github.com/dakicka/tradingApp/api/entity"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -43,7 +44,7 @@ func NewGorm(config *config.Config) *GormDB {
 }
 
 func (d *GormDB) Migrate() {
-	err := d.DB.AutoMigrate()
+	err := d.DB.AutoMigrate(&entity.User{})
 	if err != nil {
 		panic(err)
 	}

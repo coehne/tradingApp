@@ -1,34 +1,43 @@
 package repository
 
 import (
-	"github.com/dakicka/tradingApp/api/database"
+	"fmt"
+
+	"github.com/dakicka/tradingApp/api/db"
 	"github.com/dakicka/tradingApp/api/entity"
-	"github.com/gofiber/fiber/v2"
 )
 
 // UsersSQL wraps the SQL DB and implements the required operations.
 type UsersSQL struct {
-	*database.GormDB
+	db.GormDB
 }
 
-// NewUsersSQL instanciates and returns a new users repository.
-func NewUsersSQL(db *database.GormDB) Users {
-	return &UsersSQL{db}
+// NewUsersSQLRepo instanciates and returns a new users repository.
+func NewUsersSQLRepo(db *db.GormDB) Users {
+	return UsersSQL{*db}
 }
 
-func (r *UsersSQL) Create(ctx fiber.Ctx, user entity.User) (entity.User, error) {
+// Create inserts a new user into the db
+func (r UsersSQL) Create(user entity.User) (entity.User, error) {
 
-	// Insert into DB
+	fmt.Println(&user)
 	result := r.DB.Create(&user)
+	// Insert into DB
 
 	// Check for errors during insertion
 	if result.Error != nil {
 		return entity.User{}, result.Error
 	}
 
+	user = entity.User{
+		ID:        user.ID,
+		FirstName: user.FirstName,
+		Email:     user.Email,
+	}
+
 	return user, nil
 }
-func (r *UsersSQL) Get(ctx fiber.Ctx, user entity.User) (entity.User, error) {
+func (r UsersSQL) Get(user entity.User) (entity.User, error) {
 
 	// Query from DB
 	result := r.DB.Find(&user)
@@ -40,7 +49,7 @@ func (r *UsersSQL) Get(ctx fiber.Ctx, user entity.User) (entity.User, error) {
 
 	return user, nil
 }
-func (r *UsersSQL) GetByEmail(ctx fiber.Ctx, user entity.User) (entity.User, error) {
+func (r UsersSQL) GetByEmail(user entity.User) (entity.User, error) {
 
 	// Query from DB
 	result := r.DB.First(&user, "email = ?", user.Email)

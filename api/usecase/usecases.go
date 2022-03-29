@@ -6,10 +6,10 @@ import (
 )
 
 type user interface {
-	RegisterUser(ctx fiber.Ctx, firstName, email, password string) (entity.User, error)
-	GetUserFromId(ctx fiber.Ctx, id uint) (entity.User, error)
-	Login(ctx fiber.Ctx, email, password string) (entity.User, error)
-	Logout(ctx fiber.Ctx) error
+	RegisterUser(firstName, email, password string) (entity.User, error)
+	GetUserFromId(id uint) (entity.User, error)
+	Login(email, password string) (entity.User, error)
+	Logout(ctx *fiber.Ctx) error
 }
 
 type UseCases interface {

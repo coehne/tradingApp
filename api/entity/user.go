@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	ID        uint      `json:"id,omitempty"`
+	ID        uint      `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	CreatedAt time.Time `json:"-" gorm:"not null"`
 	UpdatedAt time.Time `json:"-" gorm:"not null"`
 	Email     string    `json:"email,omitempty" gorm:"unique;not null"`

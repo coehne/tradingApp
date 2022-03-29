@@ -11,7 +11,7 @@ import (
 
 var verySecretKey = os.Getenv("VERY_SECRET_KEY")
 
-func SetCookieForUser(c *fiber.Ctx, id uint) error {
+func SetCookieForUser(ctx *fiber.Ctx, id uint) error {
 	// Create the Claims
 	claims := &jwt.StandardClaims{
 		ExpiresAt: jwt.At(time.Now().Add(time.Hour * 24)),
@@ -23,8 +23,8 @@ func SetCookieForUser(c *fiber.Ctx, id uint) error {
 	token, err := tokenData.SignedString([]byte(verySecretKey))
 
 	if err != nil {
-		c.Status(fiber.StatusInternalServerError)
-		return c.JSON(fiber.Map{
+		ctx.Status(fiber.StatusInternalServerError)
+		return ctx.JSON(fiber.Map{
 			"message": "could not login",
 		})
 
@@ -36,7 +36,7 @@ func SetCookieForUser(c *fiber.Ctx, id uint) error {
 		Expires:  time.Now().Add(time.Hour * 24),
 		HTTPOnly: true,
 	}
-	c.Cookie(&cookie)
+	ctx.Cookie(&cookie)
 	return nil
 }
 
