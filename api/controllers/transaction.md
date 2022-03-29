@@ -1,4 +1,4 @@
-/* package controllers
+package controllers
 
 import (
 	"time"
@@ -64,4 +64,3 @@ func GetTransactions(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(transactions)
 
 }
-*/

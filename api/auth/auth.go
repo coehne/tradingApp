@@ -25,7 +25,7 @@ func SetCookieForUser(ctx *fiber.Ctx, id uint) error {
 	if err != nil {
 		ctx.Status(fiber.StatusInternalServerError)
 		return ctx.JSON(fiber.Map{
-			"message": "could not login",
+			"message": "internal server error",
 		})
 
 	}
@@ -40,15 +40,15 @@ func SetCookieForUser(ctx *fiber.Ctx, id uint) error {
 	return nil
 }
 
-func GetUserIdFromToken(c *fiber.Ctx) (uint, error) {
+func GetUserIdFromToken(ctx *fiber.Ctx) (uint, error) {
 
-	cookie := c.Cookies("accessToken")
+	cookie := ctx.Cookies("accessToken")
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(verySecretKey), nil
 	})
 
 	if err != nil {
-		c.Status(fiber.StatusUnauthorized)
+		ctx.Status(fiber.StatusUnauthorized)
 		return 0, err
 	}
 	claims := token.Claims.(*jwt.StandardClaims)
@@ -56,4 +56,15 @@ func GetUserIdFromToken(c *fiber.Ctx) (uint, error) {
 	// Convert string to uint64
 	ID, err := strconv.ParseUint(claims.Issuer, 10, 64)
 	return uint(ID), nil
+}
+
+func SetExpiredToken(ctx *fiber.Ctx) {
+	// Set expired new cookie to invalidate the old one
+	cookie := fiber.Cookie{
+		Name:     "accessToken",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		HTTPOnly: true,
+	}
+	ctx.Cookie(&cookie)
 }

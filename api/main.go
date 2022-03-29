@@ -17,6 +17,10 @@ import (
 // - Fieldvalidations (https://medium.com/@apzuk3/input-validation-in-golang-bc24cdec1835)
 // - Consistency in error handling and overall error handling
 // - Rethink service initialization
+// - Find better function names for endpoint, service and repo functions
+// - Get rid of .env file and use config instead
+// - Add middleware to secure private routes
+// - How to improve logging. What fmt or logging or error functions are the right ones
 
 func main() {
 	// Get .env variables
@@ -45,6 +49,8 @@ func main() {
 	// Setup all Routes
 	service := service.Init(d)
 	api.NewUser(app, service)
+	api.NewTrade(app, service)
+	api.NewTransaction(app, service)
 
 	log.Fatal(app.Listen(":8080"))
 }

@@ -18,14 +18,14 @@ func NewUser(app *fiber.App, service usecase.UseCases) {
 	ctr := userController{service}
 
 	endpointIdentity := app.Group("/api/identity")
-	endpointIdentity.Post("/signup", ctr.create)
-	endpointIdentity.Get("/me", ctr.get)
-	endpointIdentity.Post("/login", ctr.login)
-	endpointIdentity.Post("/logout", ctr.logout)
+	endpointIdentity.Post("/signup", ctr.registerUser)
+	endpointIdentity.Get("/me", ctr.getUser)
+	endpointIdentity.Post("/login", ctr.loginUser)
+	endpointIdentity.Post("/logout", ctr.logoutUser)
 
 }
 
-func (ctr *userController) create(ctx *fiber.Ctx) error {
+func (ctr *userController) registerUser(ctx *fiber.Ctx) error {
 
 	var req registerReq
 
@@ -55,19 +55,19 @@ func (ctr *userController) create(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(res)
 }
 
-func (ctr *userController) get(ctx *fiber.Ctx) error {
+func (ctr *userController) getUser(ctx *fiber.Ctx) error {
 	user := entity.User{}
 
 	// Get the user Id from the accessToken inside the cookie
 	userId, err := auth.GetUserIdFromToken(ctx)
 	if err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(err)
+		return ctx.Status(fiber.StatusOK).SendString("could not get user from cookie")
 	}
 
 	// Pass down the user object through the clean architecture shells
 	user, err = ctr.GetUserFromId(userId)
 	if err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(err)
+		return ctx.Status(fiber.StatusBadRequest).SendString("bad request")
 	}
 
 	// Build response
@@ -76,19 +76,19 @@ func (ctr *userController) get(ctx *fiber.Ctx) error {
 	// Send response
 	return ctx.Status(fiber.StatusOK).JSON(res)
 }
-func (ctr *userController) login(ctx *fiber.Ctx) error {
+func (ctr *userController) loginUser(ctx *fiber.Ctx) error {
 	var req loginReq
 
 	// TODO: add validation here
 	if err := ctx.BodyParser(&req); err != nil {
 
-		return ctx.Status(fiber.StatusBadRequest).JSON(err)
+		return ctx.Status(fiber.StatusBadRequest).SendString("bad request")
 	}
 
 	// Pass down the request data through the clean architecture shells to get user object
 	user, err := ctr.Login(req.Email, req.Password)
 	if err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(err)
+		return ctx.Status(fiber.StatusBadRequest).SendString("bad request")
 	}
 	// Set cookie with accessToken
 	auth.SetCookieForUser(ctx, user.ID)
@@ -99,12 +99,12 @@ func (ctr *userController) login(ctx *fiber.Ctx) error {
 	// Send response
 	return ctx.Status(fiber.StatusOK).JSON(res)
 }
-func (ctr *userController) logout(ctx *fiber.Ctx) error {
+func (ctr *userController) logoutUser(ctx *fiber.Ctx) error {
 
 	// Call logout function from user service
-	ctr.logout(ctx)
+	auth.SetExpiredToken(ctx)
 
-	return ctx.JSON(fiber.Map{
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "success",
 	})
 }

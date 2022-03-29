@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"fmt"
-
 	"github.com/dakicka/tradingApp/api/db"
 	"github.com/dakicka/tradingApp/api/entity"
 )
@@ -20,9 +18,8 @@ func NewUsersSQLRepo(db *db.GormDB) Users {
 // Create inserts a new user into the db
 func (r UsersSQL) Create(user entity.User) (entity.User, error) {
 
-	fmt.Println(&user)
-	result := r.DB.Create(&user)
 	// Insert into DB
+	result := r.DB.Create(&user)
 
 	// Check for errors during insertion
 	if result.Error != nil {

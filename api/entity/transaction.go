@@ -8,6 +8,6 @@ type Transaction struct {
 	UserID    uint      `json:"userId"`
 	User      User      `json:"-"`
 	Amount    float64   `json:"amount"`
-	TradeID   uint      `json:"tradeId"`
+	TradeID   *uint     `json:"tradeId"`
 	Trade     Trade     `json:"-"`
 }

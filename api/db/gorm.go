@@ -44,7 +44,7 @@ func NewGorm(config *config.Config) *GormDB {
 }
 
 func (d *GormDB) Migrate() {
-	err := d.DB.AutoMigrate(&entity.User{})
+	err := d.DB.AutoMigrate(&entity.User{}, &entity.Trade{}, &entity.Transaction{})
 	if err != nil {
 		panic(err)
 	}
