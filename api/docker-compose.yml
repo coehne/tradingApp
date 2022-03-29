@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:13.6-alpine
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: dev
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+  api:
+    image: golang:1.18.0-alpine
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/api
+    working_dir: /api
+    command: go run main.go

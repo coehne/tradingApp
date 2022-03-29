@@ -16,7 +16,7 @@ function Depot() {
     setTradeIsLoading(true)
     setTransactionIsLoading(true)
     axios
-      .get("trades")
+      .get("trades/depot")
       .then((res) => setData(res.data))
       .then(() => setTradeIsLoading(false))
       .catch((error) => console.log(error))
