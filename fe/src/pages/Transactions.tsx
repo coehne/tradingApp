@@ -59,7 +59,7 @@ function Transactions() {
             </div>
           ) : (
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     No
@@ -82,7 +82,7 @@ function Transactions() {
                 {data?.map((tx, i) => {
                   return (
                     <tr
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
                       key={tx.id}
                     >
                       <th
@@ -92,9 +92,9 @@ function Transactions() {
                         {i + 1}
                       </th>
                       <td className="px-6 py-4">
-                        {tx.tradeId === 0 && tx.amount < 0
+                        {tx.tradeId === null && tx.amount < 0
                           ? "Cash withdraw"
-                          : tx.tradeId === 0 && tx.amount > 0
+                          : tx.tradeId === null && tx.amount > 0
                           ? "Cash deposit"
                           : `Trade: ${tx.tradeId}`}
                       </td>
@@ -103,7 +103,7 @@ function Transactions() {
                         {stringToDate(tx.createdAt)}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        {tx.tradeId === 0 ? (
+                        {tx.tradeId === null ? (
                           ""
                         ) : (
                           <a
