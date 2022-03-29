@@ -13,6 +13,8 @@ type user interface {
 
 type trade interface {
 	CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Trade, error)
+	GetTradesByUserId(ctx *fiber.Ctx) ([]entity.Trade, error)
+	GetTradeById(ctx *fiber.Ctx) (entity.Trade, error)
 	GetTradesForDepot(ctx *fiber.Ctx) ([]entity.Trade, error)
 }
 

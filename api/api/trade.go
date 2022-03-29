@@ -17,8 +17,8 @@ func NewTrade(app *fiber.App, service usecase.UseCases) {
 
 	apiEndpoint := app.Group("/api/")
 	apiEndpoint.Post("trade", ctr.postTrade)
-	apiEndpoint.Get("trades", ctr.getTrades)
-	apiEndpoint.Get("trade", ctr.getTrade)
+	apiEndpoint.Get("trades/depot", ctr.getDepot)
+	apiEndpoint.Get("tradehistory", ctr.getTradeHistory)
 	apiEndpoint.Get("trade/:id", ctr.getTradeForId)
 
 }
@@ -31,6 +31,9 @@ func (ctr *tradeController) postTrade(ctx *fiber.Ctx) error {
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
 	}
+	if req.Qty == 0 {
+		return ctx.Status(fiber.StatusBadRequest).JSON("the qty can not be 0")
+	}
 	// Pass down the user object through the clean architecture shells
 	_, err = ctr.CreateTrade(ctx, req.Qty, req.Symbol)
 	// Check if everything went well down the line
@@ -42,9 +45,9 @@ func (ctr *tradeController) postTrade(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{"message": "success"})
 }
 
-func (ctr *tradeController) getTrades(ctx *fiber.Ctx) error {
+func (ctr *tradeController) getTradeHistory(ctx *fiber.Ctx) error {
 
-	trades, err := ctr.GetTradesForDepot(ctx)
+	trades, err := ctr.GetTradesByUserId(ctx)
 
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
@@ -53,9 +56,21 @@ func (ctr *tradeController) getTrades(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(trades)
 
 }
-func (ctr *tradeController) getTrade(ctx *fiber.Ctx) error {
-	return nil
+func (ctr *tradeController) getDepot(ctx *fiber.Ctx) error {
+
+	trades, err := ctr.GetTradesForDepot(ctx)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(err)
+	}
+
+	return ctx.Status(fiber.StatusOK).JSON(trades)
 }
 func (ctr *tradeController) getTradeForId(ctx *fiber.Ctx) error {
-	return nil
+
+	trade, err := ctr.GetTradeById(ctx)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(err)
+	}
+
+	return ctx.Status(fiber.StatusOK).JSON(trade)
 }

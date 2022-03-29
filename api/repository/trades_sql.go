@@ -39,3 +39,30 @@ func (r TradesSQL) GetAllByUserId(userId uint) ([]entity.Trade, error) {
 
 	return trades, nil
 }
+
+func (r TradesSQL) GetById(userId uint, tradeId uint) (entity.Trade, error) {
+
+	// Use the userId from the cookie to make sure you can only query your own trades
+	trade := entity.Trade{}
+
+	result := r.DB.First(&trade, "user_id = ? AND id = ?", userId, tradeId)
+	// Check for errors during query
+	if result.Error != nil {
+		return entity.Trade{}, result.Error
+	}
+
+	return trade, nil
+
+}
+
+func (r TradesSQL) GetDepot(userId uint) ([]entity.Trade, error) {
+
+	trades := []entity.Trade{}
+	// database.DB.Find(&trades, "user_id = ?", user.ID)
+	result := r.DB.Model(&entity.Trade{}).Select("company_name, symbol, sum(qty) as qty").Group("symbol, company_name").Where("user_id = ?", userId).Find(&trades)
+	// Check for errors during query
+	if result.Error != nil {
+		return []entity.Trade{}, result.Error
+	}
+	return trades, nil
+}

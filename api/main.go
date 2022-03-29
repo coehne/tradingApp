@@ -15,12 +15,16 @@ import (
 //TODO:
 // - Further abstract token validation and user parsing from token
 // - Fieldvalidations (https://medium.com/@apzuk3/input-validation-in-golang-bc24cdec1835)
-// - Consistency in error handling and overall error handling
 // - Rethink service initialization
 // - Find better function names for endpoint, service and repo functions
 // - Get rid of .env file and use config instead
 // - Add middleware to secure private routes
+
+//Questions:
 // - How to improve logging. What fmt or logging or error functions are the right ones
+// - Where to put helperfunctions which are used in the service. i. E. getCashByUserId or check if user
+//   has enough stonks or cash to do the trade
+// - What are good guides to improve overall error handling. When to throw which error to what output.
 
 func main() {
 	// Get .env variables
