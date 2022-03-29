@@ -21,10 +21,11 @@ import (
 // - Add middleware to secure private routes
 
 //Questions:
-// - How to improve logging. What fmt or logging or error functions are the right ones
+// - How to improve logging. What fmt or logging or error functions are the right ones?
 // - Where to put helperfunctions which are used in the service. i. E. getCashByUserId or check if user
-//   has enough stonks or cash to do the trade
-// - What are good guides to improve overall error handling. When to throw which error to what output.
+//   has enough stonks or cash to do the trade?
+// - What are good guides to improve overall error handling? When to throw which error to what output?
+// - Should the service or the endpoint get params from url or user from cookie/token?
 
 func main() {
 	// Get .env variables
@@ -55,6 +56,7 @@ func main() {
 	api.NewUser(app, service)
 	api.NewTrade(app, service)
 	api.NewTransaction(app, service)
+	api.NewQuote(app, service)
 
 	log.Fatal(app.Listen(":8080"))
 }
