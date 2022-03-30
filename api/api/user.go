@@ -61,7 +61,7 @@ func (ctr *userController) getUser(ctx *fiber.Ctx) error {
 	// Get the user Id from the accessToken inside the cookie
 	userId, err := auth.GetUserIdFromToken(ctx)
 	if err != nil {
-		return ctx.Status(fiber.StatusOK).SendString("could not get user from cookie")
+		return ctx.Status(fiber.StatusBadRequest).SendString("could not get user from cookie")
 	}
 
 	// Pass down the user object through the clean architecture shells
