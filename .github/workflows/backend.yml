@@ -43,9 +43,20 @@ jobs:
       with:
         switches: -avzr --delete
         path: /*
-        rsh: supervisorctl stop api-server && mv /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server /home/${{ secrets.UBERSPACE_USER }}/api/api && chmod +x /home/${{ secrets.UBERSPACE_USER }}/api/api && supervisorctl start api-server
         remote_path: /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server
         remote_host: ${{ secrets.UBERSPACE_HOST }}
         remote_user: ${{ secrets.UBERSPACE_USER }}
         remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
 
+ reload:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.UBERSPACE_HOST }}
+        username: ${{ secrets.UBERSPACE_USER }}
+        key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
+        port: 22
+        script: supervisorctl stop api-server && mv /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server /home/${{ secrets.UBERSPACE_USER }}/api/api && chmod +x /home/${{ secrets.UBERSPACE_USER }}/api/api && supervisorctl start api-server
