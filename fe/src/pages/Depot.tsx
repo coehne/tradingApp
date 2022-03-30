@@ -32,7 +32,7 @@ function Depot() {
 
   // Calculate the total cash of the user
   let sumCash = 0
-  txData?.map((tx) => (sumCash += tx.amount))
+  txData && txData?.map((tx) => (sumCash += tx.amount))
 
   if (tradeIsLoading === false && transactionIsLoading === false) {
     return (
@@ -81,7 +81,7 @@ function Depot() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.map((trade, i) => {
+                    {data && data?.map((trade, i) => {
                       sumStocks += trade.qty * trade.price
                       return (
                         <tr
