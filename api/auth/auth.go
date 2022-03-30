@@ -4,6 +4,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/pkg/errors"
+
 	"github.com/dgrijalva/jwt-go/v4"
 	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/viper"
@@ -23,11 +25,8 @@ func SetCookieForUser(ctx *fiber.Ctx, id uint) error {
 	token, err := tokenData.SignedString([]byte(JWT_KEY))
 
 	if err != nil {
-		ctx.Status(fiber.StatusInternalServerError)
-		return ctx.JSON(fiber.Map{
-			"message": "internal server error",
-		})
-
+		errors.Wrapf(err, "could  not sign token with claims")
+		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 
 	cookie := fiber.Cookie{
@@ -48,8 +47,8 @@ func GetUserIdFromToken(ctx *fiber.Ctx) (uint, error) {
 	})
 
 	if err != nil {
-		ctx.Status(fiber.StatusUnauthorized)
-		return 0, err
+		errors.Wrapf(err, "could not get token from cookie")
+		return 0, ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 	claims := token.Claims.(*jwt.StandardClaims)
 

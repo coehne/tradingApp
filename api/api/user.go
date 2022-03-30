@@ -48,11 +48,8 @@ func (ctr *userController) registerUser(ctx *fiber.Ctx) error {
 	// Set cookie with accessToken
 	auth.SetCookieForUser(ctx, user.ID)
 
-	// Build response
-	res := ctr.meResponse(user)
-
 	// Send response
-	return ctx.Status(fiber.StatusOK).JSON(res)
+	return ctx.SendStatus(fiber.StatusNoContent)
 }
 
 func (ctr *userController) getUser(ctx *fiber.Ctx) error {
@@ -67,7 +64,7 @@ func (ctr *userController) getUser(ctx *fiber.Ctx) error {
 	// Pass down the user object through the clean architecture shells
 	user, err = ctr.GetUserFromId(userId)
 	if err != nil {
-		return ctx.Status(fiber.StatusBadRequest).SendString("bad request")
+		return ctx.SendStatus(fiber.StatusBadRequest)
 	}
 
 	// Build response
@@ -93,20 +90,15 @@ func (ctr *userController) loginUser(ctx *fiber.Ctx) error {
 	// Set cookie with accessToken
 	auth.SetCookieForUser(ctx, user.ID)
 
-	// Build response
-	res := ctr.meResponse(user)
-
 	// Send response
-	return ctx.Status(fiber.StatusOK).JSON(res)
+	return ctx.SendStatus(fiber.StatusNoContent)
 }
 func (ctr *userController) logoutUser(ctx *fiber.Ctx) error {
 
 	// Call logout function from user service
 	auth.SetExpiredToken(ctx)
 
-	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "success",
-	})
+	return ctx.SendStatus(fiber.StatusNoContent)
 }
 
 // MeResponse takes in the user entity and only reponse with the necessary fields

@@ -4,24 +4,26 @@ import (
 	"github.com/dakicka/tradingApp/api/auth"
 	"github.com/dakicka/tradingApp/api/entity"
 	"github.com/gofiber/fiber/v2"
+	"github.com/pkg/errors"
 )
 
 func (s Service) CreateTransaction(ctx *fiber.Ctx, amount float64) (entity.Transaction, error) {
 	userId, err := auth.GetUserIdFromToken(ctx)
 	if err != nil {
-		return entity.Transaction{}, fiber.NewError(fiber.ErrInternalServerError.Code, "could not get user id from token")
+		errors.Wrap(err, "could not get user from token")
+		return entity.Transaction{}, err
 	}
 
 	if amount <= 0 {
 		// Check if user has enough cash to withdraw
 		cash, err := s.GetCashForUserId(userId)
 		if err != nil {
-			return entity.Transaction{}, fiber.NewError(fiber.StatusInternalServerError, "could not get cash for user")
+			errors.Wrapf(err, "could calculate cash for user with id: %f", userId)
+			return entity.Transaction{}, err
 		}
 		if cash < (amount * (-1)) {
 			return entity.Transaction{}, fiber.NewError(fiber.StatusBadRequest, "not enough cash for transaction")
 		}
-
 	}
 
 	// Build transaction
@@ -33,6 +35,7 @@ func (s Service) CreateTransaction(ctx *fiber.Ctx, amount float64) (entity.Trans
 	// Send transaction to repo
 	tx, err = s.transactions.CreateTransaction(tx)
 	if err != nil {
+		errors.Wrapf(err, "could create transaction for user with id: %f", userId)
 		return entity.Transaction{}, err
 	}
 
