@@ -44,6 +44,7 @@ func main() {
 	// Enable cookie support
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
+		AllowOrigins:     "http://localhost:3000",
 	}))
 
 	// Setup all Routes
