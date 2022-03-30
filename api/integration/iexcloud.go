@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
+
+	"github.com/spf13/viper"
 )
 
 type Stock struct {
@@ -71,7 +72,7 @@ type Stock struct {
 
 func GetStockInfo(symbol string) (*Stock, error) {
 
-	apiKey := os.Getenv("API_KEY")
+	apiKey := viper.GetString("IEXCLOUD_API_KEY")
 	url := fmt.Sprintf("https://cloud.iexapis.com/stable/stock/%s/quote?token=%s", symbol, apiKey)
 
 	req, err := http.NewRequest("GET", url, nil)
