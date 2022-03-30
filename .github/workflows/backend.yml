@@ -48,4 +48,4 @@ jobs:
         remote_user: ${{ secrets.UBERSPACE_USER }}
         remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
     - name: restart go server
-      run: echo "restart go server"
+      run: ssh ${{ secrets.UBERSPACE_USER }}@${{ secrets.UBERSPACE_HOST }} supervisorctl stop api-server && mv /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server /home/${{ secrets.UBERSPACE_USER }}/api/api && chmod +x /home/${{ secrets.UBERSPACE_USER }}/api/api && supervisorctl start api-server
