@@ -21,7 +21,7 @@ type GormDB struct {
 func NewGorm(config *config.Config) *GormDB {
 	var err error
 	db := &GormDB{}
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable", config.DB.Host, config.DB.User, config.DB.Password, config.DB.DBName, config.DB.Port)
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable", config.DbHost, config.DbUserName, config.DbUserPw, config.DbName, config.DbPort)
 
 	db.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{

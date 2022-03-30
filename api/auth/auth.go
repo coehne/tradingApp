@@ -1,15 +1,15 @@
 package auth
 
 import (
-	"os"
 	"strconv"
 	"time"
 
 	"github.com/dgrijalva/jwt-go/v4"
 	"github.com/gofiber/fiber/v2"
+	"github.com/spf13/viper"
 )
 
-var verySecretKey = os.Getenv("VERY_SECRET_KEY")
+var JWT_KEY = viper.GetString("JWT_KEY")
 
 func SetCookieForUser(ctx *fiber.Ctx, id uint) error {
 	// Create the Claims
@@ -20,7 +20,7 @@ func SetCookieForUser(ctx *fiber.Ctx, id uint) error {
 
 	// Create token with claims
 	tokenData := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	token, err := tokenData.SignedString([]byte(verySecretKey))
+	token, err := tokenData.SignedString([]byte(JWT_KEY))
 
 	if err != nil {
 		ctx.Status(fiber.StatusInternalServerError)
@@ -44,7 +44,7 @@ func GetUserIdFromToken(ctx *fiber.Ctx) (uint, error) {
 
 	cookie := ctx.Cookies("accessToken")
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(verySecretKey), nil
+		return []byte(JWT_KEY), nil
 	})
 
 	if err != nil {

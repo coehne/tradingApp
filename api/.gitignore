@@ -15,6 +15,7 @@
 sql.db
 
 # Ignore .env
+app.env
 .env
 
 /build

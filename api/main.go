@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/dakicka/tradingApp/api/api"
@@ -9,7 +10,7 @@ import (
 	"github.com/dakicka/tradingApp/api/service"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/joho/godotenv"
+	"github.com/spf13/viper"
 )
 
 //TODO:
@@ -28,12 +29,6 @@ import (
 // - Should the service or the endpoint get params from url or user from cookie/token?
 
 func main() {
-	// Get .env variables
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
 	// load config
 	config, err := config.New()
 	if err != nil {
@@ -58,5 +53,5 @@ func main() {
 	api.NewTransaction(app, service)
 	api.NewQuote(app, service)
 
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen(fmt.Sprintf(":%d", viper.GetUint("APP_PORT"))))
 }
