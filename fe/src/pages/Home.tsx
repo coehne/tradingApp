@@ -6,7 +6,8 @@ import UnauthenticatedApp from "./UnauthenticatedApp"
 
 function Home() {
   const { user } = useAuth()
-
+  const baseurl = process.env.REACT_APP_API_BASE_URL
+  console.log(baseurl)
   return (
     <Suspense fallback={<FullPageSpinner />}>
       {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
