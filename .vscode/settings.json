@@ -1,0 +1,25 @@
+{
+    "i18n-ally.localesPaths": [
+      "src/lang"
+    ],
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#9b9b9b",
+      "activityBar.activeBorder": "#945bc4",
+      "activityBar.background": "#000000",
+      "activityBar.foreground": "#f7f7f7",
+      "activityBar.inactiveForeground": "#6b6b6b99",
+      "activityBarBadge.background": "#ffffff",
+      "activityBarBadge.foreground": "#000000",
+      "statusBar.background": "#000000",
+      "statusBar.foreground": "#ffffff",
+      "statusBarItem.hoverBackground": "#bfbfbf",
+      "statusBarItem.hoverForeground": "#ffffff",
+      "titleBar.activeBackground": "#000000",
+      "titleBar.activeForeground": "#f7f7f7",
+      "titleBar.inactiveBackground": "#000000",
+      "titleBar.inactiveForeground": "#f7f7f7"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "window.title": "${rootName}",
+    "editor.bracketPairColorization.enabled": true
+  }
