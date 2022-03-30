@@ -43,9 +43,9 @@ jobs:
       with:
         switches: -avzr --delete
         path: /*
+        rsh: supervisorctl stop api-server && mv /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server /home/${{ secrets.UBERSPACE_USER }}/api/api && chmod +x /home/${{ secrets.UBERSPACE_USER }}/api/api && supervisorctl start api-server
         remote_path: /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server
         remote_host: ${{ secrets.UBERSPACE_HOST }}
         remote_user: ${{ secrets.UBERSPACE_USER }}
         remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
-    - name: restart go server
-      run: ssh ${{ secrets.UBERSPACE_USER }}@${{ secrets.UBERSPACE_HOST }} supervisorctl stop api-server && mv /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server /home/${{ secrets.UBERSPACE_USER }}/api/api && chmod +x /home/${{ secrets.UBERSPACE_USER }}/api/api && supervisorctl start api-server
+
