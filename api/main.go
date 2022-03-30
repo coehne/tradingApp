@@ -32,7 +32,7 @@ func main() {
 	// load config
 	config, err := config.New()
 	if err != nil {
-		log.Fatalf("could not load config: %s", err)
+		fmt.Println("did not find a app.env file. Continuing with dev defaults and without iexcloud api key.")
 	}
 
 	// Start the databse

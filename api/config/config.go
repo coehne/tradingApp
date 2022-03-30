@@ -1,7 +1,7 @@
 package config
 
 import (
-	"fmt"
+	"github.com/pkg/errors"
 
 	"github.com/spf13/viper"
 )
@@ -21,15 +21,29 @@ type Config struct {
 // Initialise the config from file
 func New() (*Config, error) {
 	var config Config
+
+	config.AppPort = 8080
+	config.DbHost = "db"
+	config.DbName = "dev"
+	config.DbPort = 5432
+	config.DbUserName = "dev"
+	config.DbUserPw = "dev"
+	viper.SetDefault("APP_PORT", "8080")
+	viper.SetDefault("JWT_KEY", "VerySecretKey")
+
 	viper.AddConfigPath(".")
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")
 	viper.AutomaticEnv()
 	err := viper.ReadInConfig()
 	if err != nil {
-		fmt.Printf(err.Error())
-		return nil, err
+		return &config, err
+	} else {
+		err := viper.Unmarshal(&config)
+		if err != nil {
+			errors.Wrap(err, "could not unmarshal config")
+		}
 	}
-	err = viper.Unmarshal(&config)
+
 	return &config, nil
 }

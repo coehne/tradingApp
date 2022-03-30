@@ -9,7 +9,6 @@ import (
 	"github.com/dakicka/tradingApp/api/entity"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 )
 
@@ -38,7 +37,7 @@ func NewGorm(config *config.Config) *GormDB {
 	log.Println("Successfully connected to database")
 
 	// How verbose the terminal log should be
-	db.DB.Logger = logger.Default.LogMode(logger.Info)
+	// db.DB.Logger = logger.Default.LogMode(logger.Info)
 
 	return db
 }
