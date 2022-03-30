@@ -7,8 +7,6 @@ import UnauthenticatedApp from "./UnauthenticatedApp"
 function Home() {
   const { user } = useAuth()
 
-  console.log(user)
-
   return (
     <Suspense fallback={<FullPageSpinner />}>
       {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
