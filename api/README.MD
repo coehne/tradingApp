@@ -1,4 +1,4 @@
 ### TradingAPP Backend
 
-# Starting the backend on port 8000
-`go run main.go`
+# Starting the backend on port 8080
+run `go run main.go`
