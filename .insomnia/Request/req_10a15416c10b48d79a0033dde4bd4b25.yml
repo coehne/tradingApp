@@ -1,0 +1,26 @@
+_id: req_10a15416c10b48d79a0033dde4bd4b25
+type: Request
+parentId: fld_4ec7bf02ae7e481faf5418f6ecedf34c
+modified: 1648575014149
+created: 1648044994708
+url: "{{ _.scheme }}{{ _.api_url }}/trade/2"
+name: Get Trade via id
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_6c635b167cf6436dab8233b5e367a1c4
+authentication: {}
+metaSortKey: -1647770010312.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

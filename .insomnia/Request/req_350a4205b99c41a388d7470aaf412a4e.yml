@@ -1,0 +1,26 @@
+_id: req_350a4205b99c41a388d7470aaf412a4e
+type: Request
+parentId: fld_2a28cc0e8ba147a48448fbcd7d2ead57
+modified: 1647770316836
+created: 1647770311450
+url: "{{ _.scheme }}{{ _.api_url }}/identity/logout"
+name: Logout
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_e5af4f68b6bb425bb74df4e3c4f42f7c
+authentication: {}
+metaSortKey: -1647765667689.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

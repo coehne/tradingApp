@@ -1,0 +1,30 @@
+_id: req_e88e3b0ed9ad4fa19a0edf958102f5ee
+type: Request
+parentId: fld_4ec7bf02ae7e481faf5418f6ecedf34c
+modified: 1648579293051
+created: 1647770499776
+url: "{{ _.scheme }}{{ _.api_url }}/trade"
+name: Create Trade
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"symbol": "TSLA",
+    	"qty": 1
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_6c635b167cf6436dab8233b5e367a1c4
+authentication: {}
+metaSortKey: -1647770499776
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

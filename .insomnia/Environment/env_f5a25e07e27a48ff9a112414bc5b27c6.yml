@@ -1,0 +1,16 @@
+_id: env_f5a25e07e27a48ff9a112414bc5b27c6
+type: Environment
+parentId: env_78353874e8bf95798a42461d984713e41cb9dcab
+modified: 1648638557593
+created: 1648638528533
+name: Uberspace
+data:
+  scheme: https://
+  api_url: tradapp.uber.space/api
+dataPropertyOrder:
+  "&":
+    - scheme
+    - api_url
+color: null
+isPrivate: false
+metaSortKey: 1648638528533
