@@ -31,7 +31,7 @@ const bootstrapAppData = async () => {
   await axios
     .get<User>("identity/me")
     .then((res) => (user = res.data))
-    .catch((err) => console.error(err))
+    .catch(() => {})
 
   return user
 }
