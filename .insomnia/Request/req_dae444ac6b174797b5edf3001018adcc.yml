@@ -1,0 +1,29 @@
+_id: req_dae444ac6b174797b5edf3001018adcc
+type: Request
+parentId: fld_d4390eae360c4223bd966984a3a97961
+modified: 1648580001177
+created: 1647770556882
+url: "{{ _.scheme }}{{ _.api_url }}/transaction"
+name: Create Transaction
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"amount": -1000
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_a51dfc67955f41e8bf290a1e6a51c9a5
+authentication: {}
+metaSortKey: -1647770556882
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

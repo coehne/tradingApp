@@ -1,0 +1,26 @@
+_id: req_22915e2e881342f4bbcde84b0659ffc4
+type: Request
+parentId: fld_d4390eae360c4223bd966984a3a97961
+modified: 1647770645599
+created: 1647770632792
+url: "{{ _.scheme }}{{ _.api_url }}/transaction"
+name: Get Transactions for user
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_a51dfc67955f41e8bf290a1e6a51c9a5
+authentication: {}
+metaSortKey: -1647770528329
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

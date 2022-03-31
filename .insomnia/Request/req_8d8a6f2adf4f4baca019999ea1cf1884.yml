@@ -1,0 +1,26 @@
+_id: req_8d8a6f2adf4f4baca019999ea1cf1884
+type: Request
+parentId: fld_4ec7bf02ae7e481faf5418f6ecedf34c
+modified: 1648579145017
+created: 1647770892740
+url: "{{ _.scheme }}{{ _.api_url }}/tradehistory"
+name: Get trade history
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_6c635b167cf6436dab8233b5e367a1c4
+authentication: {}
+metaSortKey: -1647770173467
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

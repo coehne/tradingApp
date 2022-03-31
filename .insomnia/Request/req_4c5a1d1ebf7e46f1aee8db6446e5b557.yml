@@ -1,0 +1,26 @@
+_id: req_4c5a1d1ebf7e46f1aee8db6446e5b557
+type: Request
+parentId: fld_4ec7bf02ae7e481faf5418f6ecedf34c
+modified: 1648579324444
+created: 1648054612770
+url: "{{ _.scheme }}{{ _.api_url }}/trades/depot"
+name: Get trades for depot
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_6c635b167cf6436dab8233b5e367a1c4
+authentication: {}
+metaSortKey: -1647769928735.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

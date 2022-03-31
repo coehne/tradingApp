@@ -1,0 +1,26 @@
+_id: req_3e522a3c891d4906b9455f16ea4a1ffc
+type: Request
+parentId: fld_ab6b176f46c943f4b9fbc233aa905637
+modified: 1648645136494
+created: 1647770678105
+url: "{{ _.scheme }}{{ _.api_url }}/quote/AAPL"
+name: Get Quote
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_a51dfc67955f41e8bf290a1e6a51c9a5
+authentication: {}
+metaSortKey: -1647770542605.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

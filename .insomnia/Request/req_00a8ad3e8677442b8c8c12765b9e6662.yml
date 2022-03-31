@@ -1,0 +1,26 @@
+_id: req_00a8ad3e8677442b8c8c12765b9e6662
+type: Request
+parentId: fld_2a28cc0e8ba147a48448fbcd7d2ead57
+modified: 1647770427183
+created: 1647770406239
+url: "{{ _.scheme }}{{ _.api_url }}/identity/me"
+name: Me
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_e5af4f68b6bb425bb74df4e3c4f42f7c
+authentication: {}
+metaSortKey: -1647764971111.125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
