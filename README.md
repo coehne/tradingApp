@@ -48,3 +48,12 @@ To start the frontend dev server, cd into the fe folder and run `npm start`
 ### API Testing with insomnia
 In the .insomnia folder you can also find an environment and request collection to test the api without the react frontend.
 
+## Usage Of The App
+
+After registration you have to deposit some money into your trading account. Once done, you can start buying Stonks by clicking on Buy in your depot / home screen. The app will get the latest price from the IEX Cloud API for you and calculate the total amount which will be deducted from your account when you submit the trade. 
+
+The trade also creates a corresponding transaction in your transaction log where you can revisit the details of the trade again. This is also possible on your trading history page. 
+
+Your depot page / home page calculates the current value of your positions, using the latest prices from the IEX Cloud API. It also shows you how much the total value of your account (cash) + your stonks are.
+
+If you sell stonks for a higher price than you bought it, the corresponding profit will be added to your cash position which you can later withdraw again.
