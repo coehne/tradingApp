@@ -29,7 +29,7 @@ Once you open the repo in VS Code you will get asked if you want to reopen it in
 
 If you don't have VS Code or docker installed, you can install the dependencies manually.
 
-Once you have opened the dev container or installed the needed dependencies, you can continue by starting the backend and frontend.
+Once you have opened the dev container or installed the required dependencies, you can continue by starting the backend and frontend.
 
 ### Environment file
 This project uses IEX Cloud for getting current stock market infomration. In order to use it, you need to register a free account at https://iexcloud.io/ and get yourself an API key (starting with pl_*).
