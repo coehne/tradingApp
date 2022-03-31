@@ -1,8 +1,9 @@
 # Trading App
-Final project for CS50x @Harvard
-Inspired by the C$50 Trading app (https://finance.cs50.net/)
+This is my dinal project for CS50x course @Harvard University.
 
-Find the live version hosted on uberspace at https://tradapp.uber.space
+It is inspired by the C$50 Trading app (https://finance.cs50.net/) which was part of one assignment during the course. You can find the current main branch deployed at https://tradapp.uber.space
+
+I wanted to take this as an opportunity to familiarize myself with Golang, several packages and the clean architecture approach by Robert C. Martin.
 
 
 ## Project Scope
