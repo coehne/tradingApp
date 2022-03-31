@@ -33,7 +33,7 @@ If you don't have VS Code or docker installed, you can install the dependencies 
 Once you have opened the dev container or installed the needed dependencies, you can continue by starting the backend and frontend.
 
 ### Environment file
-This project uses IEX Cloud for getting current stock market infomration. In order to use it, you need to register a free account at https://iexcloud.io/ and get yourself an API key (starting with pl_*).
+This project uses IEX Cloud for getting current stock market infomration. In order to use it, you need to register a free account using my affiliate link https://iexcloud.io/s/6417defe or the main website https://iexcloud.io/ and get yourself an API key (starting with pl_*).
 
 Once you have the API key you can rename the .app.env file to app.env in the /api folder and insert it into the "IEXCLOUD_API_KEY" variable.
 

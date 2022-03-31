@@ -7,6 +7,7 @@ import (
 	"github.com/dakicka/tradingApp/api/api"
 	"github.com/dakicka/tradingApp/api/config"
 	"github.com/dakicka/tradingApp/api/db"
+	"github.com/dakicka/tradingApp/api/integration/iexcloud"
 	"github.com/dakicka/tradingApp/api/service"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -54,6 +55,9 @@ func main() {
 	api.NewTrade(app, service)
 	api.NewTransaction(app, service)
 	api.NewQuote(app, service)
+
+	// Start integrations
+	iexcloud.NewIexCloudClient(viper.GetString("IEXCLOUD_API_KEY"))
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%d", viper.GetUint("APP_PORT"))))
 }
