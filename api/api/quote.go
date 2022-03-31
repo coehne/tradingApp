@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/dakicka/tradingApp/api/integration"
+	"github.com/dakicka/tradingApp/api/integration/iexcloud"
 	"github.com/dakicka/tradingApp/api/usecase"
 	"github.com/gofiber/fiber/v2"
 )
@@ -27,7 +27,8 @@ func (ctr *quoteController) getQuote(ctx *fiber.Ctx) error {
 	symbol := ctx.Params("symbol")
 
 	// Get stock info from iex cloud API
-	quote, err := integration.GetStockInfo(symbol)
+	// FIXME: Why is the GetStock expecting the client?!
+	quote, err := iexcloud.Client.GetStock(nil, symbol)
 	if err != nil {
 		ctx.Status(fiber.StatusOK)
 		return ctx.JSON(fiber.Map{

@@ -6,7 +6,8 @@ import (
 
 	"github.com/dakicka/tradingApp/api/auth"
 	"github.com/dakicka/tradingApp/api/entity"
-	"github.com/dakicka/tradingApp/api/integration"
+	"github.com/dakicka/tradingApp/api/integration/iexcloud"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -17,7 +18,7 @@ func (s Service) CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Tra
 	}
 
 	// Get current stock price
-	stock, err := integration.GetStockInfo(symbol)
+	stock, err := iexcloud.Client.GetStock(nil, symbol)
 	if err != nil {
 		fmt.Println(err.Error())
 		return entity.Trade{}, err
@@ -132,7 +133,7 @@ func (s Service) GetTradesForDepot(ctx *fiber.Ctx) ([]entity.Trade, error) {
 			continue
 		} else {
 			// Get current stock price
-			stock, err := integration.GetStockInfo(trade.Symbol)
+			stock, err := iexcloud.Client.GetStock(nil, trade.Symbol)
 			if err != nil {
 				return []entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "internal server error -> could not get stock data from iexcloud")
 			}

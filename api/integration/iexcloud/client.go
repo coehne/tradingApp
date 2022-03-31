@@ -103,18 +103,17 @@ func (c *IexCloudClient) GetStock(symbol string) (*Stock, error) {
 		return nil, err
 	}
 
-	defer res.Body.Close()
-
 	if res.StatusCode == 403 {
 		return nil, errors.Wrap(err, "iex cloud authorization error. Make sure you provided a valid api key in the app.env file")
 	}
+	defer res.Body.Close()
 
+	fmt.Println(res.Body)
 	var stock Stock
 
 	if err := json.NewDecoder(res.Body).Decode(&stock); err != nil {
-		return nil, errors.Wrap(err, "an error occured during decoding the iex response")
+		return nil, errors.Wrap(err, "could not unmarshal JSON response from iex cloud")
 	}
-
 	return &stock, nil
 
 }
