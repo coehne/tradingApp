@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/dakicka/tradingApp/api/db"
+	"github.com/dakicka/tradingApp/api/package/db"
 	"github.com/dakicka/tradingApp/api/repository"
 	"github.com/dakicka/tradingApp/api/usecase"
 )

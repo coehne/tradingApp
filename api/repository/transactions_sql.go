@@ -3,8 +3,8 @@ package repository
 import (
 	"fmt"
 
-	"github.com/dakicka/tradingApp/api/db"
 	"github.com/dakicka/tradingApp/api/entity"
+	"github.com/dakicka/tradingApp/api/package/db"
 )
 
 // TransactionSQL wraps the SQL DB and implements the required operations.

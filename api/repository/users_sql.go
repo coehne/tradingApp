@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"github.com/dakicka/tradingApp/api/db"
 	"github.com/dakicka/tradingApp/api/entity"
+	"github.com/dakicka/tradingApp/api/package/db"
 )
 
 // UsersSQL wraps the SQL DB and implements the required operations.

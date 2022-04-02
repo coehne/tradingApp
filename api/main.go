@@ -6,7 +6,7 @@ import (
 
 	"github.com/dakicka/tradingApp/api/api"
 	"github.com/dakicka/tradingApp/api/config"
-	"github.com/dakicka/tradingApp/api/db"
+	"github.com/dakicka/tradingApp/api/package/db"
 	"github.com/dakicka/tradingApp/api/service"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"

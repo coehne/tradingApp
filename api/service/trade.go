@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/dakicka/tradingApp/api/auth"
 	"github.com/dakicka/tradingApp/api/entity"
 	"github.com/dakicka/tradingApp/api/integration"
+	"github.com/dakicka/tradingApp/api/package/auth"
 	"github.com/gofiber/fiber/v2"
 )
 
