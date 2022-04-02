@@ -26,7 +26,7 @@ The project is build on the following dependencies
 The repo has a .devcontainer which makes it easy to start the dev environment in VS Code if you have docker installed on your system.
 It includes Go version 1.18, PostgreSQL 13.6 and Node 16 to start up the backend, db and the frontend.
 
-Once you open the repo in VS Code you will get asked if you want to reopen it in a dev container. If you won't get asked, you can do it manually by clicking in the bottom left corner of vs code and then on "Reopen in Container".
+In order to use it you need the [Remote Container VS Code extension by Microsoft.](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Once you open the repo in VS Code you will get asked if you want to reopen it in a dev container. If you won't get asked, you can do it manually by clicking in the bottom left corner of vs code and then on "Reopen in Container".
 
 If you don't have VS Code or docker installed, you can install the dependencies manually.
 
