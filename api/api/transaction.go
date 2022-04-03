@@ -16,8 +16,8 @@ func NewTransaction(app *fiber.App, service usecase.UseCases) {
 	ctr := transactionController{service}
 
 	apiEndpoint := app.Group("/api/")
-	apiEndpoint.Post("transaction", ctr.postTransaction)
-	apiEndpoint.Get("transaction", ctr.getTransactions)
+	apiEndpoint.Post("transactions", ctr.postTransaction)
+	apiEndpoint.Get("transactions", ctr.getTransactions)
 }
 
 func (ctr *transactionController) postTransaction(ctx *fiber.Ctx) error {
