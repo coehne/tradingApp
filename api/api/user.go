@@ -15,7 +15,6 @@ type userController struct {
 
 // NewUser sets up a new user service with the given repositories, helpers and
 // registers the corresponding routes.
-
 func NewUser(app *fiber.App, service usecase.UseCases) {
 	ctr := userController{service}
 

@@ -10,7 +10,7 @@ function Trade() {
   const [data, setData] = useState<ITrade | undefined>(undefined)
   useEffect(() => {
     axios
-      .get(`trade/${id}`)
+      .get(`trades/${id}`)
       .then((res) => setData(res.data))
       .catch((error) => console.log(error))
   }, [id])

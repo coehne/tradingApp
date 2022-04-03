@@ -8,7 +8,7 @@ function TradeHistory() {
   const [data, setData] = useState<Trade[] | undefined>(undefined)
   useEffect(() => {
     axios
-      .get("tradehistory")
+      .get("trades")
       .then((res) => setData(res.data))
       .catch((error) => console.log(error))
   }, [])

@@ -16,10 +16,10 @@ func NewTrade(app *fiber.App, service usecase.UseCases) {
 	ctr := tradeController{service}
 
 	apiEndpoint := app.Group("/api/")
-	apiEndpoint.Post("trade", ctr.postTrade)
+	apiEndpoint.Post("trades", ctr.postTrade)
 	apiEndpoint.Get("trades/depot", ctr.getDepot)
-	apiEndpoint.Get("tradehistory", ctr.getTradeHistory)
-	apiEndpoint.Get("trade/:id", ctr.getTradeForId)
+	apiEndpoint.Get("trades", ctr.getTradeHistory)
+	apiEndpoint.Get("trades/:id", ctr.getTradeForId)
 
 }
 
