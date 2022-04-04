@@ -46,7 +46,7 @@ To start the backend, cd into the /api folder and simply run `go run main.go`
 To start the frontend dev server, cd into the fe folder and run `npm start`
 
 ### API Testing with insomnia
-In the .insomnia folder you can also find an environment and request collection to test the api without the react frontend.
+In the .insomnia folder you can also find an environment and request collection to test the api without the react frontend. You can add this repo directly in insomnia and use git for version controll of the insomnia content.
 
 ## Usage Of The App
 
