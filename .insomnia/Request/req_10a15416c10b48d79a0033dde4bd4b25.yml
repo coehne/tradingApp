@@ -1,10 +1,10 @@
 _id: req_10a15416c10b48d79a0033dde4bd4b25
 type: Request
 parentId: fld_4ec7bf02ae7e481faf5418f6ecedf34c
-modified: 1648575014149
+modified: 1649065189168
 created: 1648044994708
-url: "{{ _.scheme }}{{ _.api_url }}/trade/2"
-name: Get Trade via id
+url: "{{ _.scheme }}{{ _.api_url }}/trades/4"
+name: Get trade by id
 description: ""
 method: GET
 body:

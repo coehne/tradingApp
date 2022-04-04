@@ -1,10 +1,10 @@
 _id: req_8d8a6f2adf4f4baca019999ea1cf1884
 type: Request
 parentId: fld_4ec7bf02ae7e481faf5418f6ecedf34c
-modified: 1648579145017
+modified: 1649064635991
 created: 1647770892740
-url: "{{ _.scheme }}{{ _.api_url }}/tradehistory"
-name: Get trade history
+url: "{{ _.scheme }}{{ _.api_url }}/trades"
+name: Get all trades (tradehistory)
 description: ""
 method: GET
 body:

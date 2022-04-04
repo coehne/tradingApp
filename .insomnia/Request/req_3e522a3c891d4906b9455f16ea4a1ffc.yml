@@ -1,9 +1,9 @@
 _id: req_3e522a3c891d4906b9455f16ea4a1ffc
 type: Request
 parentId: fld_ab6b176f46c943f4b9fbc233aa905637
-modified: 1648645136494
+modified: 1648732843720
 created: 1647770678105
-url: "{{ _.scheme }}{{ _.api_url }}/quote/AAPL"
+url: "{{ _.scheme }}{{ _.api_url }}/quote/TSLA"
 name: Get Quote
 description: ""
 method: GET

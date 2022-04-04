@@ -1,9 +1,9 @@
 _id: req_22915e2e881342f4bbcde84b0659ffc4
 type: Request
 parentId: fld_d4390eae360c4223bd966984a3a97961
-modified: 1647770645599
+modified: 1649065213468
 created: 1647770632792
-url: "{{ _.scheme }}{{ _.api_url }}/transaction"
+url: "{{ _.scheme }}{{ _.api_url }}/transactions"
 name: Get Transactions for user
 description: ""
 method: GET
