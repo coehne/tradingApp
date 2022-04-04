@@ -25,7 +25,7 @@ const NewTsx: React.FC<{ type: TransactionType }> = ({ type }) => {
       formData.amount = formData.amount * -1
     }
     axios
-      .post("/transaction/", formData)
+      .post("/transactions/", formData)
       .then(() => navigate("/transactions"))
       .catch((error) => console.log(error))
   })

@@ -1,5 +1,5 @@
 # Trading App
-This is my dinal project for CS50x course @Harvard University.
+This is my final project for CS50x course @Harvard University.
 
 It is inspired by the C$50 Trading app (https://finance.cs50.net/) which was part of one assignment during the course. You can find the current main branch deployed at https://tradapp.uber.space
 
@@ -15,7 +15,7 @@ I wanted to take this as an opportunity to familiarize myself with Golang, sever
 - [x] Build a react frontend
 - [x] Use tailwind CSS
 - [x] Use Github actions for CI/CD and autodeployment to uberspace
-- [ ] Write unit tests in Go and React
+- [ ] Write tests in Go and React
 
 ## Dependencies
 The project is build on the following dependencies

@@ -17,11 +17,11 @@ func NewQuote(app *fiber.App, service usecase.UseCases) {
 	ctr := quoteController{service}
 
 	apiEndpoint := app.Group("/api/")
-	apiEndpoint.Get("quote/:symbol", ctr.getQuote)
+	apiEndpoint.Get("quote/:symbol", ctr.get)
 
 }
 
-func (ctr *quoteController) getQuote(ctx *fiber.Ctx) error {
+func (ctr *quoteController) get(ctx *fiber.Ctx) error {
 
 	// Get symbol from params
 	symbol := ctx.Params("symbol")

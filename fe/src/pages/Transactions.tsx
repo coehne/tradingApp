@@ -8,7 +8,7 @@ function Transactions() {
   const [data, setData] = useState<Transaction[] | undefined>()
   useEffect(() => {
     axios
-      .get("transaction")
+      .get("transactions")
       .then((res) => setData(res.data))
       .catch((error) => console.log(error))
   }, [])

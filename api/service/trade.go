@@ -11,7 +11,7 @@ import (
 )
 
 func (s Service) CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Trade, error) {
-	userId, err := auth.GetUserIdFromToken(ctx)
+	userId, err := auth.GetUserIdByContext(ctx)
 	if err != nil {
 		return entity.Trade{}, fiber.NewError(fiber.ErrInternalServerError.Code, "could not get user id from token")
 	}
@@ -23,7 +23,7 @@ func (s Service) CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Tra
 		return entity.Trade{}, err
 	}
 
-	// build trade
+	// Build trade
 	t := entity.Trade{
 		UserID:      userId,
 		Qty:         qty,
@@ -39,7 +39,7 @@ func (s Service) CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Tra
 	}
 
 	// Check if user has enough cash
-	cash, err := s.GetCashForUserId(userId)
+	cash, err := s.GetCashByUserId(userId)
 	if err != nil {
 		return entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "could not get balance of user")
 	}
@@ -49,8 +49,9 @@ func (s Service) CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Tra
 
 	// Check if user has enough stonks to sell
 	if tx.Amount > 0 {
+
 		// Check how many stonks of that symbol are in the depot
-		depot, err := s.trades.GetDepot(userId)
+		depot, err := s.trades.GetDepotByUserId(userId)
 		if err != nil {
 			return entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "could not get depot from repo")
 		}
@@ -74,13 +75,13 @@ func (s Service) CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Tra
 	}
 
 	tx.TradeID = &t.ID
-	tx, err = s.transactions.CreateTransaction(tx)
+	tx, err = s.transactions.Create(tx)
 
 	return t, nil
 }
 
 func (s Service) GetTradesByUserId(ctx *fiber.Ctx) ([]entity.Trade, error) {
-	userId, err := auth.GetUserIdFromToken(ctx)
+	userId, err := auth.GetUserIdByContext(ctx)
 	if err != nil {
 		return []entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "could not get user id from token")
 	}
@@ -95,17 +96,17 @@ func (s Service) GetTradesByUserId(ctx *fiber.Ctx) ([]entity.Trade, error) {
 }
 
 func (s Service) GetTradeById(ctx *fiber.Ctx) (entity.Trade, error) {
-	userId, err := auth.GetUserIdFromToken(ctx)
+	userId, err := auth.GetUserIdByContext(ctx)
 	if err != nil {
 		return entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "could not get user id from token")
 	}
+
 	// Get tradeId from params
 	tradeId, err := ctx.ParamsInt("id")
 	if err != nil {
 		return entity.Trade{}, ctx.Status(fiber.StatusBadRequest).JSON("Please ensure that :id is an integer")
 	}
 
-	// Get trade from repo
 	trade, err := s.trades.GetById(userId, uint(tradeId))
 	if err != nil {
 		return entity.Trade{}, fiber.NewError(fiber.StatusForbidden, "access denied")
@@ -116,16 +117,18 @@ func (s Service) GetTradeById(ctx *fiber.Ctx) (entity.Trade, error) {
 }
 
 func (s Service) GetTradesForDepot(ctx *fiber.Ctx) ([]entity.Trade, error) {
-	userId, err := auth.GetUserIdFromToken(ctx)
+	userId, err := auth.GetUserIdByContext(ctx)
 	if err != nil {
 		return []entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "could not get user id from token")
 	}
 
-	trades, err := s.trades.GetDepot(userId)
+	trades, err := s.trades.GetDepotByUserId(userId)
 	if err != nil {
 		return []entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "could not get trades from repo")
 	}
-	depoTrades := []entity.Trade{}
+
+	var depoTrades []entity.Trade
+
 	// Get current price and clean data
 	for _, trade := range trades {
 		if trade.Qty == 0 {
@@ -134,7 +137,7 @@ func (s Service) GetTradesForDepot(ctx *fiber.Ctx) ([]entity.Trade, error) {
 			// Get current stock price
 			stock, err := integration.GetStockInfo(trade.Symbol)
 			if err != nil {
-				return []entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "internal server error -> could not get stock data from iexcloud")
+				return []entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "internal server error -> could not get stock data from iexcloud, try again later")
 			}
 
 			trade.Price = stock.LatestPrice

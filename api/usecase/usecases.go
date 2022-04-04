@@ -20,7 +20,7 @@ type trade interface {
 
 type transaction interface {
 	CreateTransaction(ctx *fiber.Ctx, amount float64) (entity.Transaction, error)
-	GetAllForUserId(ctx *fiber.Ctx) ([]entity.Transaction, error)
+	GetAllTransactionsByUserId(ctx *fiber.Ctx) ([]entity.Transaction, error)
 }
 
 type UseCases interface {

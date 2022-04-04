@@ -23,7 +23,7 @@ export const SellForm = () => {
     }
 
     axios
-      .post("/trade/", formData)
+      .post("/trades/", formData)
       .then(() => navigate("/"))
       .catch((error) => console.log(error))
   })

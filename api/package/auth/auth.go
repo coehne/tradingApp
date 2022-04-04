@@ -39,7 +39,7 @@ func SetCookieForUser(ctx *fiber.Ctx, id uint) error {
 	return nil
 }
 
-func GetUserIdFromToken(ctx *fiber.Ctx) (uint, error) {
+func GetUserIdByContext(ctx *fiber.Ctx) (uint, error) {
 
 	cookie := ctx.Cookies("accessToken")
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
