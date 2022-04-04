@@ -28,13 +28,14 @@ func (s Service) RegisterUser(firstName, email, password string) (entity.User, e
 
 	user, err := s.users.Create(u)
 	if err != nil {
-		return entity.User{}, errors.Wrapf(err, "could create user with email %s", u.Email)
+		return entity.User{}, errors.Wrapf(err, "could not create user with email %s", u.Email)
 	}
 
 	return user, nil
 }
 
 func (s Service) GetUserFromId(id uint) (entity.User, error) {
+
 	// Build empty user object and assign id
 	user := entity.User{
 		ID: id,

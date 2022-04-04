@@ -16,14 +16,13 @@ func NewTransaction(app *fiber.App, service usecase.UseCases) {
 	ctr := transactionController{service}
 
 	apiEndpoint := app.Group("/api/")
-	apiEndpoint.Post("transactions", ctr.postTransaction)
-	apiEndpoint.Get("transactions", ctr.getTransactions)
+	apiEndpoint.Post("transactions", ctr.create)
+	apiEndpoint.Get("transactions", ctr.getAll)
 }
 
-func (ctr *transactionController) postTransaction(ctx *fiber.Ctx) error {
+func (ctr *transactionController) create(ctx *fiber.Ctx) error {
 	var req createTransactionReq
 
-	// TODO: add validation here
 	err := ctx.BodyParser(&req)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
@@ -39,9 +38,9 @@ func (ctr *transactionController) postTransaction(ctx *fiber.Ctx) error {
 		"message": "success",
 	})
 }
-func (ctr *transactionController) getTransactions(ctx *fiber.Ctx) error {
+func (ctr *transactionController) getAll(ctx *fiber.Ctx) error {
 
-	transactions, err := ctr.GetAllForUserId(ctx)
+	transactions, err := ctr.GetAllTransactionsByUserId(ctx)
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(err)
 	}

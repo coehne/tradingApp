@@ -17,6 +17,5 @@
       "titleBar.inactiveForeground": "#f7f7f7"
     },
     "typescript.tsdk": "node_modules/typescript/lib",
-    "window.title": "${rootName}",
     "editor.bracketPairColorization.enabled": true
   }

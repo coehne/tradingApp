@@ -19,31 +19,29 @@ func NewUser(app *fiber.App, service usecase.UseCases) {
 	ctr := userController{service}
 
 	endpointIdentity := app.Group("/api/identity")
-	endpointIdentity.Post("/signup", ctr.registerUser)
-	endpointIdentity.Get("/me", ctr.getUser)
-	endpointIdentity.Post("/login", ctr.loginUser)
-	endpointIdentity.Post("/logout", ctr.logoutUser)
+	endpointIdentity.Post("/signup", ctr.register)
+	endpointIdentity.Get("/me", ctr.getMe)
+	endpointIdentity.Post("/login", ctr.login)
+	endpointIdentity.Post("/logout", ctr.logout)
 
 }
 
-func (ctr *userController) registerUser(ctx *fiber.Ctx) error {
+func (ctr *userController) register(ctx *fiber.Ctx) error {
 
 	var req registerReq
 
-	// TODO: add validation here
 	err := ctx.BodyParser(&req)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
 	}
-	// Pass down the user object through the clean architecture shells
+
 	user, err := ctr.RegisterUser(req.FirstName, req.Email, req.Password)
 
-	// Check if everything went well down the line
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(err)
 	}
 
-	// Remove clear text pw for security
+	// Remove pw for security
 	req.Password = ""
 
 	// Set cookie with accessToken
@@ -53,11 +51,11 @@ func (ctr *userController) registerUser(ctx *fiber.Ctx) error {
 	return ctx.SendStatus(fiber.StatusNoContent)
 }
 
-func (ctr *userController) getUser(ctx *fiber.Ctx) error {
+func (ctr *userController) getMe(ctx *fiber.Ctx) error {
 	user := entity.User{}
 
 	// Get the user Id from the accessToken inside the cookie
-	userId, err := auth.GetUserIdFromToken(ctx)
+	userId, err := auth.GetUserIdByContext(ctx)
 	if err != nil {
 		fmt.Println("userId error")
 		return ctx.SendStatus(fiber.StatusInternalServerError)
@@ -66,7 +64,6 @@ func (ctr *userController) getUser(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).SendString("no user found")
 	}
 
-	// Pass down the user object through the clean architecture shells
 	user, err = ctr.GetUserFromId(userId)
 	if err != nil {
 		return ctx.SendStatus(fiber.StatusBadRequest)
@@ -78,12 +75,11 @@ func (ctr *userController) getUser(ctx *fiber.Ctx) error {
 	// Send response
 	return ctx.Status(fiber.StatusOK).JSON(res)
 }
-func (ctr *userController) loginUser(ctx *fiber.Ctx) error {
+
+func (ctr *userController) login(ctx *fiber.Ctx) error {
 	var req loginReq
 
-	// TODO: add validation here
 	if err := ctx.BodyParser(&req); err != nil {
-
 		return ctx.Status(fiber.StatusBadRequest).SendString("bad request")
 	}
 
@@ -92,15 +88,16 @@ func (ctr *userController) loginUser(ctx *fiber.Ctx) error {
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).SendString("bad request")
 	}
+
 	// Set cookie with accessToken
 	auth.SetCookieForUser(ctx, user.ID)
 
 	// Send response
 	return ctx.SendStatus(fiber.StatusNoContent)
 }
-func (ctr *userController) logoutUser(ctx *fiber.Ctx) error {
+func (ctr *userController) logout(ctx *fiber.Ctx) error {
 
-	// Call logout function from user service
+	// Use an expired cookie to invalidate the users cookie
 	auth.SetExpiredToken(ctx)
 
 	return ctx.SendStatus(fiber.StatusNoContent)

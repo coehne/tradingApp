@@ -17,11 +17,12 @@ func NewTransactionSQLRepo(db *db.GormDB) Transactions {
 	return TransactionSQL{*db}
 }
 
-func (r TransactionSQL) CreateTransaction(tx entity.Transaction) (entity.Transaction, error) {
-	// Insert into DB
+// Create inserts the transaction into the PSQL db and returns the transaction
+// including generated values like id and timestamps
+func (r TransactionSQL) Create(tx entity.Transaction) (entity.Transaction, error) {
+
 	result := r.DB.Create(&tx)
 
-	// Check for errors during insertion
 	if result.Error != nil {
 		fmt.Println(result.Error)
 		return entity.Transaction{}, result.Error
@@ -30,12 +31,11 @@ func (r TransactionSQL) CreateTransaction(tx entity.Transaction) (entity.Transac
 	return tx, nil
 }
 
-func (r TransactionSQL) GetAllForUserId(userId uint) ([]entity.Transaction, error) {
+func (r TransactionSQL) GetAllByUserId(userId uint) ([]entity.Transaction, error) {
 
 	transactions := []entity.Transaction{}
 	result := r.DB.Find(&transactions, "user_id = ?", userId)
 
-	// Check for errors during query
 	if result.Error != nil {
 		return []entity.Transaction{}, result.Error
 	}
