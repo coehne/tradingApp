@@ -92,8 +92,11 @@ func (ctr *userController) login(ctx *fiber.Ctx) error {
 	// Set cookie with accessToken
 	auth.SetCookieForUser(ctx, user.ID)
 
+	// Build response
+	res := ctr.meResponse(user)
+
 	// Send response
-	return ctx.SendStatus(fiber.StatusNoContent)
+	return ctx.Status(fiber.StatusOK).JSON(res)
 }
 func (ctr *userController) logout(ctx *fiber.Ctx) error {
 
