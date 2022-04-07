@@ -22,7 +22,7 @@ function Depot() {
       .catch((error) => console.log(error))
 
     axios
-      .get("transaction")
+      .get("transactions")
       .then((res) => setTxData(res.data))
       .then(() => setTransactionIsLoading(false))
       .catch((error) => console.log(error))
