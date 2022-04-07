@@ -58,11 +58,11 @@ const AuthProvider = (props: { children: React.ReactNode }) => {
   }, [run])
 
   const login = useCallback(
-    (form) => auth.login(form).then((user) => setData(user as any)), //FIXME: Lazy typing.
+    (form) => auth.login(form).then((user) => setData(user)), 
     [setData]
   )
   const signup = useCallback(
-    (form) => auth.signup(form).then((user) => setData(user as any)), //FIXME: Lazy typing.
+    (form) => auth.signup(form).then((user) => setData(user)),
     [setData]
   )
 
