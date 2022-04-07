@@ -127,14 +127,15 @@ function Navbar() {
                     Signup
                   </Link>
                 </div>
-              ) : (
+              ) : (<>
+                <div className="text-white">Hi, {user.firstName} </div>
                 <button
                   onClick={() => onLogout()}
                   className="px-3 bg-primary text-black font-bold rounded hover:bg-green-600 transition duration-300 h-8"
                 >
                   Logout
                 </button>
-              )}
+                </> )}
             </div>
 
             {/* Mobile button */}
