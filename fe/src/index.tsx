@@ -8,7 +8,6 @@ import { AuthProvider } from "./context/AuthContext"
 
 
 const container = document.getElementById("root") as HTMLDivElement
-
 const root = createRoot(container)
 root.render(<React.StrictMode>
   <AuthProvider>

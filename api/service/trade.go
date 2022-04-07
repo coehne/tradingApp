@@ -43,7 +43,8 @@ func (s Service) CreateTrade(ctx *fiber.Ctx, qty int, symbol string) (entity.Tra
 	if err != nil {
 		return entity.Trade{}, fiber.NewError(fiber.StatusInternalServerError, "could not get balance of user")
 	}
-	if t.Qty > 0 && cash < tx.Amount {
+
+	if t.Qty > 0 && cash < t.Price*float64(t.Qty) {
 		return entity.Trade{}, fiber.NewError(fiber.StatusBadRequest, "not enough cash")
 	}
 
