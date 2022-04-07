@@ -80,7 +80,7 @@ function Signup() {
                 <Link to={"/login"} className="underline">
                   login
                 </Link>{" "}
-                instead
+                instead.
               </Alert>
             )}
 

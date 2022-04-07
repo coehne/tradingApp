@@ -3,7 +3,7 @@ import { FormContainer, InputText } from "../components/FormElements"
 import { useAsync } from "../hooks/useAsync"
 import { useAuth } from "../context/AuthContext"
 import { Alert } from "../components/Alert"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { SubmitButton } from "../components/Button"
 
 interface FormData {
@@ -32,6 +32,9 @@ function Login() {
       <div className="max-w-md w-full mx-auto">
         <div className="text-3xl font-bold text-gray-900 mt-2 text-center">
           Login
+        </div>
+        <div className="text-center font-medium text-sm mt-2">
+          Don't have an account? <Link className="underline" to={"/signup"}>Sign-up</Link> for free!
         </div>
         <FormContainer>
           <form onSubmit={onSubmit} className="space-y-6">
