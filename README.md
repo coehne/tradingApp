@@ -1,5 +1,5 @@
 # Trading App
-This is my final project for CS50x course @Harvard University.
+This is my final project for CS50x @Harvard University.
 
 It is inspired by the C$50 Trading app (https://finance.cs50.net/) which was part of one assignment during the course. You can find the current main branch deployed at https://tradapp.uber.space
 
