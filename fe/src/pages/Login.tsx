@@ -5,11 +5,8 @@ import { useAuth } from "../context/AuthContext"
 import { Alert } from "../components/Alert"
 import { Link, useNavigate } from "react-router-dom"
 import { SubmitButton } from "../components/Button"
+import { LoginForm } from "../AuthProvider"
 
-interface FormData {
-  email: string
-  password: string
-}
 
 function Login() {
   const navigate = useNavigate()
@@ -17,7 +14,7 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ mode: "onSubmit" })
+  } = useForm<LoginForm>({ mode: "onSubmit" })
 
   const { run, error, isSuccess, isLoading } = useAsync<any>()
   const { login } = useAuth()
@@ -37,7 +34,7 @@ function Login() {
           Don't have an account? <Link className="underline" to={"/signup"}>Sign-up</Link> for free!
         </div>
         <FormContainer>
-          <form onSubmit={onSubmit} className="space-y-6">
+          <form onSubmit={onSubmit} className="space-y-6" >
             <InputText
               errors={errors}
               registerHandler={() =>

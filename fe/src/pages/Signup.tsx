@@ -5,19 +5,15 @@ import { useAuth } from "../context/AuthContext"
 import { Alert } from "../components/Alert"
 import { useAsync } from "../hooks/useAsync"
 import { SubmitButton } from "../components/Button"
+import { SignupForm } from "../AuthProvider"
 
-interface FormData {
-  firstName: string
-  email: string
-  password: string
-}
 
 function Signup() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ mode: "onSubmit" })
+  } = useForm<SignupForm>({ mode: "onSubmit" })
 
   const navigate = useNavigate()
   const { signup } = useAuth()

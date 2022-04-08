@@ -1,6 +1,7 @@
 import axios from "../utils/apiClient"
 import {
   createContext,
+  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -38,7 +39,7 @@ const bootstrapAppData = async () => {
 
 let AuthContext = createContext<AuthContextType>(null!)
 
-const AuthProvider = (props: { children: React.ReactNode }) => {
+const AuthProvider = (props: { children: ReactNode }) => {
   const {
     state: { data: user },
     status,
@@ -58,11 +59,11 @@ const AuthProvider = (props: { children: React.ReactNode }) => {
   }, [run])
 
   const login = useCallback(
-    (form) => auth.login(form).then((user) => setData(user)), 
+    (form: auth.LoginForm) => auth.login(form).then((user) => setData(user)), 
     [setData]
   )
   const signup = useCallback(
-    (form) => auth.signup(form).then((user) => setData(user)),
+    (form: auth.SignupForm) => auth.signup(form).then((user) => setData(user)),
     [setData]
   )
 

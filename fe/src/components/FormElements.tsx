@@ -20,7 +20,7 @@ export const InputText: React.FC<{
   </div>
 )
 
-export const FormContainer: React.FC<ReactNode> = (children) => (
+export const FormContainer: React.FC<{children: ReactNode}> = ({children}) => (
   <div className="max-w-md w-full-md mx-auto bg-white border p-8 border-gray-300 mt-4">
     {children}
   </div>

@@ -2,6 +2,17 @@ import axios from "./utils/apiClient"
 import { User } from "./models/User"
 import { AxiosError } from "axios"
 
+export interface SignupForm {
+  firstName: string
+  email: string
+  password: string
+}
+
+export interface LoginForm {
+  email: string
+  password: string
+}
+
 const handleUserResponse = ({ id, firstName }: User) => {
   return { id, firstName }
 }
@@ -9,10 +20,7 @@ const handleUserResponse = ({ id, firstName }: User) => {
 const login = ({
   email,
   password,
-}: {
-  email: string
-  password: string
-}) => {
+}: LoginForm) => {
   return axios.post("identity/login/", { email, password }).then((res) =>
     handleUserResponse(res.data)
   ).catch((error: AxiosError) => Promise.reject({
@@ -25,11 +33,7 @@ const signup = ({
   firstName,
   email,
   password,
-}: {
-  firstName: string
-  email: string
-  password: string
-}) => {
+}: SignupForm) => {
   return axios.post("identity/signup/", { email, password, firstName }).then((res) =>
     handleUserResponse(res.data)
   ).catch((error: AxiosError) => Promise.reject({
