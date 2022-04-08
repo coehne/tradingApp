@@ -1,5 +1,8 @@
+import { ReactNode } from "react"
+
 interface AlertProps {
   msg: string
+  children?: ReactNode
 }
 
 export const Alert: React.FC<AlertProps> = ({ children, msg }) => (

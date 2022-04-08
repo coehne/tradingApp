@@ -1,7 +1,9 @@
+import { ReactNode } from "react"
 import { SpinnerGreenSmall } from "./Spinner"
 
 interface SubmitButtonProps {
   isLoading?: boolean
+  children: ReactNode
 }
 
 export const SubmitButton: React.FC<SubmitButtonProps> = ({

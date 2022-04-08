@@ -1,10 +1,12 @@
 import { ErrorMessage } from "@hookform/error-message"
+import { ReactNode } from "react"
 import { FieldErrors, UseFormRegisterReturn } from "react-hook-form"
 
 export const InputText: React.FC<{
   name: string
   type: string
   errors: FieldErrors
+  children: ReactNode
   registerHandler(): UseFormRegisterReturn
 }> = ({ children, name, type, errors, registerHandler }) => (
   <div>
@@ -18,7 +20,7 @@ export const InputText: React.FC<{
   </div>
 )
 
-export const FormContainer: React.FC<{}> = ({ children }) => (
+export const FormContainer: React.FC<ReactNode> = (children) => (
   <div className="max-w-md w-full-md mx-auto bg-white border p-8 border-gray-300 mt-4">
     {children}
   </div>

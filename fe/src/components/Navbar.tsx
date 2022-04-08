@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { ReactNode, useState } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 
@@ -10,6 +10,7 @@ function Navbar() {
   const navigate = useNavigate()
   const MobileNavigationMenuItem: React.FC<{
     to: string
+    children: ReactNode
     toggleMenu?: () => void
   }> = ({ children, to, toggleMenu }) => {
     const activeClassNames =
@@ -52,6 +53,7 @@ function Navbar() {
 
   const NavigationMenuItem: React.FC<{
     to: string
+    children: ReactNode
   }> = ({ children, to }) => {
     const activeClassNames = "py-5 px-3 text-green-600 hover:text-green-600"
     const inActiveClassNames = "py-5 px-3 text-gray-200 hover:text-green-600"
