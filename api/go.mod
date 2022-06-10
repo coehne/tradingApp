@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
 	github.com/gofiber/fiber/v2 v2.34.0
-	github.com/pkg/errors v0.8.1
+	github.com/pkg/errors v0.9.1
 	github.com/spf13/viper v1.10.1
 	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
 	gorm.io/driver/postgres v1.3.7
