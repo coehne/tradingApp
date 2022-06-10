@@ -25,7 +25,7 @@ jobs:
           cache-dependency-path: fe/package-lock.json
       - run: cd fe && npm ci &&  && npm run build --if-present
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: "reactApp"
           # A file, directory or wildcard pattern that describes what to upload
