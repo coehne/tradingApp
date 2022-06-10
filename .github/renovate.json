@@ -1,0 +1,20 @@
+{
+    "packageRules": [
+        {
+            "description": "Automatically merge minor and patch-level updates",
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "digest"
+            ],
+            "automerge": true,
+            "automergeType": "pr",
+            "stabilityDays": 4,
+            "automergeComment": "Automerge",
+            "branchPrefix": "security/renovate/",
+            "prCreation": "immediate",
+            "lockFileMaintenance": true,
+            "rebaseStalePrs": true
+        }
+    ]
+}
