@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
-	github.com/gofiber/fiber/v2 v2.34.0
+	github.com/gofiber/fiber/v2 v2.34.1
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/viper v1.12.0
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
