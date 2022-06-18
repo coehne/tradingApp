@@ -7,7 +7,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.34.1
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/viper v1.12.0
-	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
+	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e
 	gorm.io/driver/postgres v1.3.7
 	gorm.io/gorm v1.23.6
 )
