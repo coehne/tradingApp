@@ -2,56 +2,66 @@ name: Backend CI Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+      - name: Test
+        run: cd api && go test -v main.go
 
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.18
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
 
-    - name: Build
-      run: cd api && go build -v -o build/ main.go
+      - name: Build
+        run: cd api && go build -v -o build/ main.go
 
-    - name: Test
-      run: cd api && go test -v main.go
-  
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: 'goApp'
-        # A file, directory or wildcard pattern that describes what to upload
-        path: api/build/main
-        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: "goApp"
+          # A file, directory or wildcard pattern that describes what to upload
+          path: api/build/main
+
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
-    - uses: actions/download-artifact@v2
-      with:
-        name: 'goApp'
-    - name: rsync deployments
-      uses: burnett01/rsync-deployments@4.1
-      with:
-        switches: -avzr --delete
-        path: /*
-        remote_path: /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server
-        remote_host: ${{ secrets.UBERSPACE_HOST }}
-        remote_user: ${{ secrets.UBERSPACE_USER }}
-        remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
+      - uses: actions/download-artifact@v2
+        with:
+          name: "goApp"
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete
+          path: /*
+          remote_path: /home/${{ secrets.UBERSPACE_USER }}/api/.api-go-server
+          remote_host: ${{ secrets.UBERSPACE_HOST }}
+          remote_user: ${{ secrets.UBERSPACE_USER }}
+          remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
 
   reload:
-      needs: [deploy]
-      runs-on: ubuntu-latest
-      steps:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
